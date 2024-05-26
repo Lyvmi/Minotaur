@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
 
+// Prevents an error on GPU - Not a harmful error
 app.commandLine.appendSwitch("disable-software-rasterizer");
 app.commandLine.appendSwitch('disable-gpu');
 
