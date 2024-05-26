@@ -1,6 +1,7 @@
 const body = document.querySelector("body"),
         sidebar = body.querySelector(".sidebar"),
         toggle = body.querySelector(".toggle");
+        notes = body.querySelector(".note")
 
         
         toggle.addEventListener("click", () =>{
