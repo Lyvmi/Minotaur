@@ -1,26 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World!</title>
-    <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-  </head>
-  <body>
-    <div class="container ">
-      <div id="options" class="box">
-        <button id="notes" class="button is-light">Notes</button>
-        <button id="todo" class="button is-light">todo</button>
-        <button id="calendar" class="button is-light">calendar</button>
-      </div>
 
-      <h1>container</h1>
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World!</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+  <div class="container ">
+    <nav class="sidebar close">
+      <header>
+        <div class="image-text">
+          <span class="image">
+            <img src="logo.png" alt="Minotaur">
+          </span>
+
+          <div class="text header-text">
+            <span class="name">Minotaur</span>
+            <span class="proffesion">Note app</span>
+          </div>
+        </div>
+      </header>
+        <div class="menu-bar">
+          <div class="menu">
+            <ul class="menu-links">
+              <li class="nav-link">
+                <a href="#"">
+                  <i class='bx bx-note icon'></i>
+                  <span class="text nav-text">Notas</span>
+                </a>
+              </li>
+              <li class="nav-link">
+                <a href="#"">
+                  <i class='bx bx-task-x icon'></i>
+                  <span class="text nav-text">Tareas</span>
+                </a>
+              </li>
+              <li class="nav-link">
+                <a href="#"">
+                  <i class='bx bx-calendar icon'></i>
+                  <span class="text nav-text">Calendario</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="bottom-content">
+            <li class="nav-link">
+              <a href="#"">
+                <i class='bx bxs-cog icon' ></i>
+                <span class="text nav-text">Opciones</span>
+              </a>
+            </li>
+            <i class='bx bx-chevron-right toggle'></i>
+          </div>
+        </div>
+
+
+
+    </nav>
 
 
 
 
-    </div>
 
-    <script src="./renderer.js"></script>
-  </body>
+
+
+  </div>
+
+  <script src="./renderer.js"></script>
+</body>
+
 </html>
