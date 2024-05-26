@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, nativeTheme } = require('electron');
 const path = require('node:path');
 
 // Prevents an error on GPU - Not a harmful error
@@ -53,3 +53,6 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+// Force light theme
+nativeTheme.themeSource="light"

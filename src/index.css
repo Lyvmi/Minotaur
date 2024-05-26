@@ -6,3 +6,15 @@ body {
   max-width: 38rem;
   padding: 2rem;
 }
+
+#options {
+  width: 300px;
+  height: auto;
+  background-color: lightblue;
+}
+
+.container {
+  width: 800px;
+  background-color: darkcyan;
+  color: white;
+}
