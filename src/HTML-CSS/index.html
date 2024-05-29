@@ -23,17 +23,17 @@
           <ul class="menu-links">
             <li class="nav-link">
               <a href="#">
-                  <i class='bx bx-note icon active' title="Notas"></i>
+                <i class='bx bx-note icon active' title="Notas"></i>
               </a>
             </li>
             <li class="nav-link">
               <a href="./task.html">
-                  <i class='bx bx-task-x icon' title="Tareas"></i>
+                <i class='bx bx-task-x icon' title="Tareas"></i>
               </a>
             </li>
             <li class="nav-link">
               <a href="./calendar.html">
-                  <i class='bx bx-calendar icon' title="Calendario"></i>
+                <i class='bx bx-calendar icon' title="Calendario"></i>
               </a>
             </li>
           </ul>
@@ -41,7 +41,7 @@
         <div class="bottom-content">
           <li class="nav-link">
             <a href="./options.html">
-                <i class='bx bxs-cog icon' title="Opciones"></i>
+              <i class='bx bxs-cog icon' title="Opciones"></i>
             </a>
           </li>
         </div>
@@ -51,11 +51,12 @@
     <!-- FOLDER BROWSER -->
     <div class="folder-container close">
       <div class="folder-menu">
-
-
+        <button id="open-root">Open Root Directory</button>
+        <div id="current-path">Current Path: /</div>
+        <div id="file-explorer"></div>
       </div>
-
     </div>
+
 
     <!-- NOTE CONTAINER -->
     <div class="note-container close">
@@ -67,11 +68,12 @@
         <i class='bx bx-cloud-upload' title="Guardar en la nube"></i>
       </nav>
       <div class="note-editor">
-        <input type="text" class="note-title" placeholder="Title"><hr>
+        <input type="text" class="note-title" placeholder="Title">
+        <hr>
         <textarea class="note-body" placeholder="Write your note here..."></textarea>
       </div>
     </div>
-    
+
 
 
 
