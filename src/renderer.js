@@ -18,3 +18,4 @@ const body = document.querySelector("body"),
                 toggle.classList.add("bx-chevron-right");
             }
         })
+

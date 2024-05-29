@@ -1,8 +1,10 @@
 :root {
   /* THEME COLORS */
   --body-color: #e4e9f7;
-  --sidebar-color: #FFF;
-  --primary-color: #696cfe;
+  --sidebar-color: #222831;
+  --primary-color: #00ADB5;
+  --folder-color: #393E46;
+  --note-color: #EEEEEE;
 }
 
 ::-webkit-scrollbar {
@@ -17,6 +19,7 @@ body {
   display: flex;
 }
 
+/* SIDEBAR */
 /* SIDEBAR */
 .sidebar {
   position: fixed;
@@ -50,16 +53,15 @@ body {
 
 .sidebar li .icon {
   min-width: 50px;
-  font-size: 30px;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black;
+  color: lightslategray;
 }
 
 .sidebar li .icon.active {
-  background-color: lightcoral;
-  color: red;
+  color: var(--primary-color);
 }
 
 .sidebar li a {
@@ -72,7 +74,7 @@ body {
 }
 
 .sidebar li a:hover .icon {
-  color: red;
+  color: var(--primary-color);
 }
 
 .sidebar .menu-bar {
@@ -90,7 +92,7 @@ body {
   height: 100%;
   display: flex;
   width: 200px;
-  background: red;
+  background: var(--folder-color);
 }
 
 .folder-container.close {
@@ -116,10 +118,80 @@ body {
   left: calc(200px + 50px);
   height: 100%;
   width: calc(100vw - 250px);
-  background: blue;
+  background: var(--note-color);
+  padding: 0; /* Remove padding */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.note-container hr {
+  border: none; /* Remove default border */
+  background-color: var(--folder-color); /* Set background color */
+  height: 1px; /* Adjust height */
+  margin: 10px; /* Adjust margin */
 }
 
 .note-container.close {
   left: 50px;
   width: calc(100vw - 50px);
+}
+
+.note-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0px 50px;
+  padding: 10px; /* Add padding to the note editor */
+}
+
+.note-title {
+  font-size: 24px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.note-body {
+  flex-grow: 1;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  resize: none; /* Prevent resizing */
+}
+
+.tool-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 30px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.tool-bar .note-name {
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: small;
+}
+
+.tool-bar i {
+  margin-left: 10px;
+}
+
+.note-title,
+.note-body {
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: var(--note-color); /* Set background color */
+  border: none; /* Remove border */
+  outline: none; /* Remove outline */
+  padding: 10px; /* Add padding */
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.note-title {
+  font-weight: bold;
 }
