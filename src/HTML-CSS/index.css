@@ -17,26 +17,21 @@ body {
   background: var(--body-color);
 }
 
-.sidebar .text {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.sidebar .image {
-  min-width: 60px;
-  display: flex;
-  align-items: center;
-}
-
 /* SIDEBAR */
+
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   padding: 10px 14px;
-  width: 250px;
+  width: 200px;
   background: var(--sidebar-color);
+}
+
+.sidebar .text {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .sidebar.close {
@@ -47,55 +42,26 @@ body {
   opacity: 0;
 }
 
-
-.sidebar .image-text img {
-  width: 40px;
-}
-
-.sidebar header .image-text {
-  display: flex;
-  align-items: center;
-}
-
-header .image-text .header-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.header-text .name {
-  font-weight: 600;
-}
-
-.header-text .proffesion {
-  margin-top: -2;
-}
-
-.sidebar.close .toggle {
+.sidebar.close .toggle.close {
   position: absolute;
   bottom: 20px;
   margin-bottom: 0px;
   min-width: 60px;
-  font-size: 36px;
+  font-size: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.sidebar.open .toggle {
+.sidebar .toggle {
   position: absolute;
-  right: 25px;
   bottom: 20px;
+  right: 15px;
   margin-bottom: 0px;
   min-width: 60px;
-  font-size: 36px;
+  font-size: 40px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.sidebar header {
-  position: relative;
-  margin-bottom: 40px;
 }
 
 .sidebar li {
@@ -114,7 +80,7 @@ header .image-text .header-text {
   justify-content: center;
 }
 
-sidebar li .text {
+.sidebar li .text {
   color: var(--primary-color);
 }
 
@@ -142,3 +108,21 @@ sidebar li .text {
   flex-direction: column;
   justify-content: space-between;
 }
+
+/* FOLDER BROWSER */
+
+.folder-container {
+  position: fixed;
+  top: 0;
+  left: 200px;
+  height: 100%;
+  display: flex;
+  width: 400px;
+  background: red;
+}
+
+.folder-container.close {
+  left: 88px;
+}
+
+/* NOTE CONTAINER */
