@@ -179,6 +179,7 @@ body {
 
 .tool-bar i {
   margin-left: 10px;
+  cursor: pointer;
 }
 
 .note-title,
