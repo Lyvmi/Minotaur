@@ -57,7 +57,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: lightslategray;
+  color: lightgray;
 }
 
 .sidebar li .icon.active {
