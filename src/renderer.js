@@ -1,3 +1,5 @@
+const { ipcRenderer } = require("electron");
+
 const body = document.querySelector("body"),
     toggle = body.querySelector(".toggle"),
     folder_container = body.querySelector(".folder-container"),
@@ -24,9 +26,8 @@ toggle.addEventListener("click", () => {
 save.addEventListener("click", () => {
     title = body.querySelector('.note-title').value;
     note_body = body.querySelector('.note-body').value;
-    console.log("Note saved!");
-    console.log(title);
-    console.log(note_body);
+    ipcRenderer.send('save-note', { title: title, body: note_body });
+    console.log("Hola");
 })
 save_cloud.addEventListener("click", () => {
     title = body.querySelector('.note-title').value;

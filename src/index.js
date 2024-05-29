@@ -1,5 +1,6 @@
-const { app, BrowserWindow, nativeTheme } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, nativeTheme } = require('electron');
 const path = require('node:path');
+const fs = require("fs");
 
 // Prevents an error on GPU - Not a harmful error
 app.commandLine.appendSwitch("disable-software-rasterizer");
@@ -17,9 +18,12 @@ const createWindow = () => {
     height: 768,
     autoHideMenuBar: true,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: false,
       nodeIntegration: true,
-    },
+      nodeIntegrationInWorker: true,
+      enableRemoteModule: true,
+      preload: path.join(__dirname, 'preload.js')
+    }
   });
 
   // and load the index.html of the app.
@@ -57,4 +61,37 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and import them here.
 
 // Force light theme
-nativeTheme.themeSource="light"
+nativeTheme.themeSource = "light"
+
+// IPC event listener to handle saving note
+ipcMain.on('save-note', (event, noteData) => {
+  const title = noteData.title;
+  const body = noteData.body;
+
+  // Open a save dialog
+  dialog.showSaveDialog({
+    title: 'Save Note',
+    defaultPath: `${title}.txt`, // Default file name based on title
+    filters: [
+      { name: 'Text Files', extensions: ['txt'] } // Filter for .txt files
+    ]
+  }).then(result => {
+    if (!result.canceled) {
+      // Write data to the selected file
+      fs.writeFile(result.filePath, `Title: ${title}\n\n${body}`, (err) => {
+        if (err) {
+          // Handle error
+          console.error('Error saving file:', err);
+          event.reply('save-note-status', { success: false, message: 'Error saving file' });
+        } else {
+          // File saved successfully
+          console.log('File saved successfully:', result.filePath);
+          event.reply('save-note-status', { success: true, message: 'File saved successfully' });
+        }
+      });
+    }
+  }).catch(err => {
+    console.error('Error showing save dialog:', err);
+    event.reply('save-note-status', { success: false, message: 'Error showing save dialog' });
+  });
+});
