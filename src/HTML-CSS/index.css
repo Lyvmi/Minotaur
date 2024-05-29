@@ -5,6 +5,10 @@
   --primary-color: #696cfe;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   height: 100vh;
   background: var(--body-color);
@@ -19,34 +23,16 @@ body {
   top: 0;
   left: 0;
   height: 100%;
-  padding: 10px 14px;
-  width: 200px;
+  padding: 10px 0px;
+  width: 50px;
   background: var(--sidebar-color);
   transition: width 0.3s;
-}
-
-.sidebar .text {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.sidebar.close {
-  width: 88px;
-}
-
-.sidebar.close .text {
-  opacity: 0;
-}
-
-.sidebar.close .toggle {
-  right: 15px;
 }
 
 .sidebar .toggle {
   position: absolute;
   bottom: 20px;
-  right: 15px;
-  min-width: 60px;
+  min-width: 50px;
   font-size: 40px;
   display: flex;
   align-items: center;
@@ -63,15 +49,17 @@ body {
 }
 
 .sidebar li .icon {
-  min-width: 60px;
+  min-width: 50px;
   font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: black;
 }
 
-.sidebar li .text {
-  color: var(--primary-color);
+.sidebar li .icon.active {
+  background-color: lightcoral;
+  color: red;
 }
 
 .sidebar li a {
@@ -83,13 +71,8 @@ body {
   border-radius: 6px;
 }
 
-.sidebar li a:hover {
-  background: var(--primary-color);
-}
-
-.sidebar li a:hover .icon,
-.sidebar li a:hover .text {
-  color: var(--sidebar-color);
+.sidebar li a:hover .icon {
+  color: red;
 }
 
 .sidebar .menu-bar {
@@ -103,16 +86,15 @@ body {
 .folder-container {
   position: fixed;
   top: 0;
-  left: 200px;
+  left: 50px;
   height: 100%;
   display: flex;
-  width: 400px;
+  width: 200px;
   background: red;
-  transition: left 0.3s;
 }
 
 .folder-container.close {
-  left: 88px;
+  opacity: 0;
 }
 
 .folder-toggle {
@@ -131,14 +113,13 @@ body {
 .note-container {
   position: fixed;
   top: 0;
-  left: calc(200px + 400px);
+  left: calc(200px + 50px);
   height: 100%;
-  width: calc(100vw - 600px);
+  width: calc(100vw - 250px);
   background: blue;
-  transition: left 0.3s, width 0.3s;
 }
 
 .note-container.close {
-  left: calc(88px + 400px);
-  width: calc(100vw - 488px);
+  left: 50px;
+  width: calc(100vw - 50px);
 }
