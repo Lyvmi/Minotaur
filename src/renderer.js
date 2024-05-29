@@ -45,7 +45,11 @@ function displayDirectoryContents(directoryPath) {
             link.textContent = file;
             link.href = '#';
             link.onclick = () => {
-                openItem(filePath);
+                openItem(filePath, false);
+                return false; // Prevent default link behavior
+            };
+            link.ondblclick = () => {
+                openItem(filePath, true);
                 return false; // Prevent default link behavior
             };
             fileExplorer.appendChild(link);
@@ -58,7 +62,7 @@ function displayDirectoryContents(directoryPath) {
 }
 
 // Function to open a file or directory
-function openItem(filePath) {
+function openItem(filePath, open_file) {
     fs.stat(filePath, (err, stats) => {
         if (err) {
             console.error('Error accessing file/directory:', err);
@@ -84,10 +88,12 @@ function openItem(filePath) {
                 // Extract file name from file path
                 const fileName = path.basename(filePath);
 
+                if (open_file) {
+                    console.log('File Name:', fileName);
+                    noteTitle.value = fileName;
+                    noteBody.value = data;
+                }
                 // Display file name and contents
-                console.log('File Name:', fileName);
-                noteTitle.value = fileName;
-                noteBody.value = data;
             });
         }
     });
