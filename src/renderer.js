@@ -1,6 +1,27 @@
-const { ipcRenderer } = require("electron");
-const fs = require("fs");
-const path = require("path");
+// const { ipcRenderer } = require("electron");
+// const fs = require("fs");
+// const path = require("path");
+
+document.addEventListener('DOMContentLoaded', () => {
+    const folders = document.querySelectorAll('.folder');
+
+    folders.forEach(folder => {
+        folder.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const childUl = folder.nextElementSibling;
+            if (childUl) {
+                childUl.classList.toggle('show');
+                folder.classList.toggle("show")
+            }
+        });
+    });
+});
+
+
+
+
+
+
 
 const body = document.querySelector("body"),
     toggle = body.querySelector(".toggle"),
@@ -11,7 +32,8 @@ const body = document.querySelector("body"),
     fileExplorer = document.getElementById('file-explorer'),
     currentPathDisplay = document.getElementById('current-path'),
     noteTitle = body.querySelector('.note-title'),
-    noteBody = body.querySelector('.note-body');
+    noteBody = body.querySelector('.note-body'),
+    markdown_toggle = body.querySelector(".bxl-markdown");
 
 toggle.addEventListener("click", () => {
     folder_container.classList.toggle("close");
@@ -26,6 +48,10 @@ toggle.addEventListener("click", () => {
         toggle.classList.remove("bx-chevron-left");
         toggle.classList.add("bx-chevron-right");
     }
+});
+
+markdown_toggle.addEventListener("click", () => {
+    markdown_toggle.classList.toggle("active");
 });
 
 // Function to display directory contents
@@ -46,11 +72,11 @@ function displayDirectoryContents(directoryPath) {
             link.href = '#';
             link.onclick = () => {
                 openItem(filePath, false);
-                return false; // Prevent default link behavior
+                return false;
             };
             link.ondblclick = () => {
                 openItem(filePath, true);
-                return false; // Prevent default link behavior
+                return false;
             };
             fileExplorer.appendChild(link);
             fileExplorer.appendChild(document.createElement('br'));

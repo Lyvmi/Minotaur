@@ -3,20 +3,19 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Mintoaur</title>
+  <title>Minotaur</title>
   <link rel="stylesheet" href="index.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-  <div class="container ">
+  <div class="container">
 
     <!-- SIDE BAR MENU -->
     <nav class="sidebar">
       <header>
         <i class='bx bx-chevron-right toggle close'></i>
-
       </header>
       <div class="menu-bar">
         <div class="menu">
@@ -39,11 +38,13 @@
           </ul>
         </div>
         <div class="bottom-content">
-          <li class="nav-link">
-            <a href="./options.html">
-              <i class='bx bxs-cog icon' title="Opciones"></i>
-            </a>
-          </li>
+          <ul class="menu-links">
+            <li class="nav-link">
+              <a href="./options.html">
+                <i class='bx bxs-cog icon' title="Opciones"></i>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -51,19 +52,45 @@
     <!-- FOLDER BROWSER -->
     <div class="folder-container close">
       <div class="folder-menu">
-        <button id="open-root">Open Root Directory</button>
-        <div id="current-path">Current Path: /</div>
-        <div id="file-explorer"></div>
+        <header class="folder-buttons">
+          <i class='bx bx-file-find' title="Abrir fichero"></i>
+          <i class='bx bxs-folder-open' title="Abrir directorio"></i>
+          <i class='bx bxl-markdown' title="Alternar markdown"></i>
+        </header>
+        <i id="home" class='bx bx-home-alt'></i>
+        <div id="current-path">Notas / Hola / Adios</div>
+        <div class="folder-tree">
+          <ul>
+              <li><span class="folder">Root Folder</span>
+                  <ul>
+                      <li><span class="folder">Folder 1</span>
+                          <ul>
+                              <li><span class="file">File 1.1</span></li>
+                              <li><span class="file">File 1.2</span></li>
+                          </ul>
+                      </li>
+                      <li><span class="folder">Folder 2</span>
+                          <ul>
+                              <li><span class="file">File 2.1</span></li>
+                              <li><span class="folder">Folder 2.1</span>
+                                  <ul>
+                                      <li><span class="file">File 2.1.1</span></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li><span class="file">File 3</span></li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
       </div>
     </div>
-
 
     <!-- NOTE CONTAINER -->
     <div class="note-container close">
       <nav class="tool-bar">
-        <div class="note-name">
-          001-Groceries.md
-        </div>
+        <div class="note-name">001-Groceries.md</div>
         <i class='bx bxs-save' title="Guardar"></i>
         <i class='bx bx-cloud-upload' title="Guardar en la nube"></i>
       </nav>
@@ -73,9 +100,6 @@
         <textarea class="note-body" placeholder="Write your note here..."></textarea>
       </div>
     </div>
-
-
-
 
   </div>
 

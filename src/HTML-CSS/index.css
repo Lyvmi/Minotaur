@@ -20,7 +20,6 @@ body {
 }
 
 /* SIDEBAR */
-/* SIDEBAR */
 .sidebar {
   position: fixed;
   top: 0;
@@ -91,26 +90,82 @@ body {
   left: 50px;
   height: 100%;
   display: flex;
+  flex-direction: column;
   width: 200px;
   background: var(--folder-color);
+  padding: 20px;
+  padding-top: 30px;
+  box-sizing: border-box;
 }
 
 .folder-container.close {
   opacity: 0;
+  left: -200px;
 }
 
-.folder-toggle {
-  position: absolute;
-  top: 50%;
-  right: -20px;
-  transform: translateY(-50%);
-  background: var(--primary-color);
-  color: var(--sidebar-color);
-  padding: 10px;
-  border-radius: 50%;
+.folder-buttons{
+  font-size: 24px;
   cursor: pointer;
 }
 
+.folder-buttons i{
+  margin: 5px;
+}
+
+.folder-buttons i:hover{
+  color: var(--primary-color);
+  transition: 0.3s;
+}
+
+.folder-buttons .bxl-markdown.active{
+  color: var(--primary-color);
+}
+
+.folder-menu {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#home {
+  background: var(--primary-color);
+  color: white;
+  font-size: 18px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s;
+}
+
+#home:hover {
+  background: darken(var(--primary-color), 10%);
+}
+
+#current-path {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  border: solid 1px;
+  border-radius: 4px;
+  border-color: lightgray;
+  background-color: var(--sidebar-color);
+  font-weight: bold;
+}
+
+#file-explorer {
+  margin-top: 20px;
+  flex-grow: 1;
+  width: 100%;
+  text-align: center;
+}
 /* NOTE CONTAINER */
 .note-container {
   position: fixed;
@@ -124,10 +179,10 @@ body {
 }
 
 .note-container hr {
-  border: none; /* Remove default border */
-  background-color: var(--folder-color); /* Set background color */
-  height: 1px; /* Adjust height */
-  margin: 10px; /* Adjust margin */
+  border: none;
+  background-color: var(--folder-color);
+  height: 1px;
+  margin: 10px;
 }
 
 .note-container.close {
@@ -195,4 +250,50 @@ body {
 
 .note-title {
   font-weight: bold;
+}
+
+
+
+
+/* OPENING AND CLOSING FOLDER */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.folder-tree ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.folder-tree li {
+  margin: 0;
+  padding: 0 12px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.folder-tree .folder::before {
+  content: "> ";
+  margin-right: 5px;
+}
+
+.folder-tree .file::before {
+  content: "📄 ";
+  margin-right: 5px;
+}
+
+.folder-tree ul ul {
+  display: none;
+  margin-left: 20px;
+  padding-left: 10px;
+  border-left: 1px dashed #ccc;
+}
+
+.folder-tree ul ul.show {
+  display: block;
+}
+
+.folder-tree .folder.show::before{
+  content: "v ";
 }
