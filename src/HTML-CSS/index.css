@@ -91,7 +91,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 250px;
   background: var(--folder-color);
   padding: 20px;
   padding-top: 30px;
@@ -100,7 +100,7 @@ body {
 
 .folder-container.close {
   opacity: 0;
-  left: -200px;
+  left: -250px;
 }
 
 .folder-buttons{
@@ -170,9 +170,9 @@ body {
 .note-container {
   position: fixed;
   top: 0;
-  left: calc(200px + 50px);
+  left: calc(250px + 50px);
   height: 100%;
-  width: calc(100vw - 250px);
+  width: calc(100vw - 300px);
   background: var(--note-color);
   padding: 0; /* Remove padding */
   box-sizing: border-box; /* Ensure padding doesn't affect width */
