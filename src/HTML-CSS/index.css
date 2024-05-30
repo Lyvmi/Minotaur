@@ -268,13 +268,13 @@ body {
 
 .folder-tree li {
   margin: 0;
-  padding: 0 12px;
+  padding: 0 2px;
   line-height: 20px;
   cursor: pointer;
 }
 
 .folder-tree .folder::before {
-  content: "> ";
+  content: ">";
   margin-right: 5px;
 }
 
@@ -285,9 +285,9 @@ body {
 
 .folder-tree ul ul {
   display: none;
-  margin-left: 20px;
-  padding-left: 10px;
-  border-left: 1px dashed #ccc;
+  margin-left: 10px;
+  padding-left: 5px;
+  border-left: 1px solid #ccc;
 }
 
 .folder-tree ul ul.show {
@@ -295,5 +295,5 @@ body {
 }
 
 .folder-tree .folder.show::before{
-  content: "v ";
+  content: "v";
 }
