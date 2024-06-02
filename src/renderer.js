@@ -10,6 +10,7 @@ const body = document.querySelector("body"),
     note_container = body.querySelector(".note-container"),
     save = body.querySelector(".bxs-save"),
     save_cloud = body.querySelector(".bx-cloud-upload"),
+    clear_note = body.querySelector(".bx-trash"),
     folder_tree = body.querySelector('.folder-tree'),
     currentPathDisplay = document.getElementById('current-path'),
     noteName = body.querySelector('.note-name'),
@@ -19,7 +20,8 @@ const body = document.querySelector("body"),
     zero_md = body.querySelector(".zero-md"),
     md_text = body.querySelector(".md-text"),
     open_file = body.querySelector(".bx-file-find"),
-    open_folder = body.querySelector(".bxs-folder-open");
+    open_folder = body.querySelector(".bxs-folder-open"),
+    new_note = body.querySelector("#new-note");
 
 
 toggle.addEventListener("click", () => {
@@ -51,6 +53,16 @@ markdown_toggle.addEventListener("click", () => {
     }
 });
 
+clear_note.addEventListener("click", () => {
+    noteTitle.value = "";
+    noteBody.value = "";
+});
+
+new_note.addEventListener("click", () => {
+    noteName.innerHTML = "";
+    noteTitle.value = "";
+    noteBody.value = "";
+})
 
 // Function to generate directory tree HTML
 function buildDirectoryTreeHTML(directoryPath, callback) {
