@@ -76,9 +76,9 @@ ipcMain.on('save-note', (event, noteData) => {
   // Open a save dialog
   dialog.showSaveDialog({
     title: 'Save Note',
-    defaultPath: `${title}.txt`, // Default file name based on title
+    defaultPath: `${title}.md`,
     filters: [
-      { name: 'Text Files', extensions: ['txt'] } // Filter for .txt files
+      { name: 'Text Files', extensions: ['md'] }
     ]
   }).then(result => {
     isDialogOpen = false;

@@ -7,9 +7,6 @@
   --note-color: #EEEEEE;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
 
 body {
   height: 100vh;
@@ -234,7 +231,8 @@ body {
 }
 
 .note-title,
-.note-body {
+.note-body,
+zero-md {
   width: 100%;
   margin-bottom: 5px;
   background-color: var(--note-color); /* Set background color */
@@ -242,12 +240,13 @@ body {
   outline: none; /* Remove outline */
   padding: 10px; /* Add padding */
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
 
 .note-title {
   font-weight: bold;
+  min-height: 48px;
 }
-
 
 
 

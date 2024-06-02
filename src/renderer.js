@@ -16,30 +16,41 @@ const body = document.querySelector("body"),
     noteTitle = body.querySelector('.note-title'),
     noteBody = body.querySelector('.note-body'),
     markdown_toggle = body.querySelector(".bxl-markdown"),
+    zero_md = body.querySelector(".zero-md"),
+    md_text = body.querySelector(".md-text"),
     open_file = body.querySelector(".bx-file-find"),
     open_folder = body.querySelector(".bxs-folder-open");
 
-if (toggle) {
-    toggle.addEventListener("click", () => {
-        folder_container.classList.toggle("close");
-        toggle.classList.toggle("close");
-        note_container.classList.toggle("close");
 
-        if (toggle.classList.contains("bx-chevron-right")) {
-            toggle.classList.remove("bx-chevron-right");
-            toggle.classList.add("bx-chevron-left");
-        } else {
-            toggle.classList.remove("bx-chevron-left");
-            toggle.classList.add("bx-chevron-right");
-        }
-    });
-}
+toggle.addEventListener("click", () => {
+    folder_container.classList.toggle("close");
+    toggle.classList.toggle("close");
+    note_container.classList.toggle("close");
 
-if (markdown_toggle) {
-    markdown_toggle.addEventListener("click", () => {
-        markdown_toggle.classList.toggle("active");
-    });
-}
+    if (toggle.classList.contains("bx-chevron-right")) {
+        toggle.classList.remove("bx-chevron-right");
+        toggle.classList.add("bx-chevron-left");
+    } else {
+        toggle.classList.remove("bx-chevron-left");
+        toggle.classList.add("bx-chevron-right");
+    }
+});
+
+
+
+markdown_toggle.addEventListener("click", () => {
+    markdown_toggle.classList.toggle("active");
+    if (markdown_toggle.classList.contains("active")){
+        text = body.querySelector(".note-body").value;
+        md_text.innerHTML = text;
+        noteBody.style.display = "none";
+        zero_md.style.display = "block";
+    } else {
+        noteBody.style.display = "block";
+        zero_md.style.display = "none";
+    }
+});
+
 
 // Function to generate directory tree HTML
 function buildDirectoryTreeHTML(directoryPath, callback) {
@@ -141,7 +152,7 @@ function openItem(filePath, open_file) {
         if (stats.isDirectory()) {
             displayDirectoryContents(filePath);
         } else {
-            if (!filePath.endsWith('.txt')) {
+            if (!filePath.endsWith('.md')) {
                 console.log('Error: Selected file is not a .txt file.');
                 return;
             }
@@ -222,3 +233,5 @@ function openFolderDialog() {
 // Event listeners for the file and folder dialog buttons
 open_file.addEventListener('click', openFileDialog);
 open_folder.addEventListener('click', openFolderDialog);
+
+noteBody.tagName = "zero-md";

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="index.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
 </head>
 
 <body>
@@ -76,6 +77,19 @@
         <input type="text" class="note-title" placeholder="Title">
         <hr>
         <textarea class="note-body" placeholder="Write your note here..."></textarea>
+        <zero-md class="zero-md">
+          <template>
+            <style>
+              body{
+                background-color: #EEEEEE;
+              }
+            </style>
+          </template>
+          <script type="text/markdown" class="md-text">
+            
+          </script>
+          </template>
+        </zero-md>
       </div>
     </div>
 
