@@ -78,7 +78,7 @@ ipcMain.on('save-note', (event, noteData) => {
   }).then(result => {
     if (!result.canceled) {
       // Write data to the selected file
-      fs.writeFile(result.filePath, `${body}`, (err) => {
+      fs.writeFile(result.filePath, `Title: ${title}\n\n${body}`, (err) => {
         if (err) {
           // Handle error
           console.error('Error saving file:', err);

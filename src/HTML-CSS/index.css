@@ -278,10 +278,11 @@ body {
   margin-right: 5px;
 }
 
-.folder-tree .file::before {
+.folder-tree .fichero::before {
   content: "📄 ";
   margin-right: 5px;
 }
+
 
 .folder-tree ul ul {
   display: none;
