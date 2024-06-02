@@ -13,7 +13,7 @@ const body = document.querySelector("body"),
     note_container = body.querySelector(".note-container"),
     save = body.querySelector(".bxs-save"),
     save_cloud = body.querySelector(".bx-cloud-upload"),
-    clear_note = body.querySelector(".bx-trash"),
+    clear_note = body.querySelector(".bx-recycle"),
     folder_tree = body.querySelector('.folder-tree'),
     currentPathDisplay = document.getElementById('current-path'),
     noteName = body.querySelector('.note-name'),
@@ -24,8 +24,9 @@ const body = document.querySelector("body"),
     md_text = body.querySelector(".md-text"),
     open_file = body.querySelector(".bx-file-find"),
     open_folder = body.querySelector(".bxs-folder-open"),
-    new_note = body.querySelector("#new-note");
-
+    new_note = body.querySelector("#new-note"),
+    new_folder = body.querySelector(".bx-folder-plus"),
+    delete_note = body.querySelector(".bx-trash");
 
 toggle.addEventListener("click", () => {
     folder_container.classList.toggle("close");
