@@ -40,7 +40,7 @@ toggle.addEventListener("click", () => {
 
 markdown_toggle.addEventListener("click", () => {
     markdown_toggle.classList.toggle("active");
-    if (markdown_toggle.classList.contains("active")){
+    if (markdown_toggle.classList.contains("active")) {
         text = body.querySelector(".note-body").value;
         md_text.innerHTML = text;
         noteBody.style.display = "none";
@@ -152,29 +152,30 @@ function openItem(filePath, open_file) {
         if (stats.isDirectory()) {
             displayDirectoryContents(filePath);
         } else {
-            if (!filePath.endsWith('.md')) {
+            if ((filePath.endsWith('.md')) || (filePath.endsWith(".txt"))) {
+                fs.readFile(filePath, 'utf8', (err, data) => {
+                    if (err) {
+                        console.error('Error reading file:', err);
+                        return;
+                    }
+
+                    // Extract file name from file path
+                    const fileName = path.basename(filePath);
+
+                    if (open_file) {
+                        noteContent = data.split("---...---.-.-");
+                        noteName.innerHTML = fileName;
+                        noteTitle.value = noteContent[0];
+                        noteBody.value = noteContent[1];
+                    }
+                    // Display file name and contents
+                });
+            }
+            else {
                 console.log('Error: Selected file is not a .txt file.');
                 return;
             }
 
-            fs.readFile(filePath, 'utf8', (err, data) => {
-                if (err) {
-                    console.error('Error reading file:', err);
-                    return;
-                }
-
-                // Extract file name from file path
-                const fileName = path.basename(filePath);
-
-                if (open_file) {
-                    noteContent = data.split("---...---.-.-");
-                    console.log(noteContent);
-                    noteName.innerHTML = fileName;
-                    noteTitle.value = noteContent[0];
-                    noteBody.value = noteContent[1];
-                }
-                // Display file name and contents
-            });
         }
     });
 }
