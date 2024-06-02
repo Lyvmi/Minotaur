@@ -150,9 +150,11 @@ function openItem(filePath, open_file) {
                 const fileName = path.basename(filePath);
 
                 if (open_file) {
+                    noteContent = data.split("---...---.-.-");
+                    console.log(noteContent);
                     noteName.innerHTML = fileName;
-                    noteTitle.value = "";
-                    noteBody.value = data;
+                    noteTitle.value = noteContent[0];
+                    noteBody.value = noteContent[1];
                 }
                 // Display file name and contents
             });
