@@ -2,6 +2,8 @@ const { app, BrowserWindow, dialog, ipcMain, nativeTheme } = require('electron')
 const path = require('node:path');
 const fs = require("fs");
 
+let isDialogOpen = false;
+
 // Prevents an error on GPU - Not a harmful error
 app.commandLine.appendSwitch("disable-software-rasterizer");
 app.commandLine.appendSwitch('disable-gpu');
@@ -57,16 +59,19 @@ app.on('window-all-closed', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
-
 // Force light theme
-nativeTheme.themeSource = "light"
+nativeTheme.themeSource = "light";
 
 // IPC event listener to handle saving note
 ipcMain.on('save-note', (event, noteData) => {
   const title = noteData.title;
   const body = noteData.body;
+
+  if (isDialogOpen) {
+    return;
+  }
+
+  isDialogOpen = true;
 
   // Open a save dialog
   dialog.showSaveDialog({
@@ -76,6 +81,7 @@ ipcMain.on('save-note', (event, noteData) => {
       { name: 'Text Files', extensions: ['txt'] } // Filter for .txt files
     ]
   }).then(result => {
+    isDialogOpen = false;
     if (!result.canceled) {
       // Write data to the selected file
       fs.writeFile(result.filePath, `${title}---...---.-.-${body}`, (err) => {
@@ -91,7 +97,51 @@ ipcMain.on('save-note', (event, noteData) => {
       });
     }
   }).catch(err => {
+    isDialogOpen = false;
     console.error('Error showing save dialog:', err);
     event.reply('save-note-status', { success: false, message: 'Error showing save dialog' });
   });
+});
+
+// IPC event listener to handle opening file dialog
+ipcMain.handle('show-open-file-dialog', async () => {
+  if (isDialogOpen) {
+    return { canceled: true };
+  }
+
+  isDialogOpen = true;
+
+  try {
+    const result = await dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [{ name: 'Text Files', extensions: ['txt'] }]
+    });
+    isDialogOpen = false;
+    return result;
+  } catch (err) {
+    isDialogOpen = false;
+    console.error('Error showing open file dialog:', err);
+    return { canceled: true };
+  }
+});
+
+// IPC event listener to handle opening folder dialog
+ipcMain.handle('show-open-folder-dialog', async () => {
+  if (isDialogOpen) {
+    return { canceled: true };
+  }
+
+  isDialogOpen = true;
+
+  try {
+    const result = await dialog.showOpenDialog({
+      properties: ['openDirectory']
+    });
+    isDialogOpen = false;
+    return result;
+  } catch (err) {
+    isDialogOpen = false;
+    console.error('Error showing open folder dialog:', err);
+    return { canceled: true };
+  }
 });

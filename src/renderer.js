@@ -2,6 +2,8 @@ const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
 
+let notes_directory = "/home/lyvmi/Notas";
+
 const body = document.querySelector("body"),
     toggle = body.querySelector(".toggle"),
     folder_container = body.querySelector(".folder-container"),
@@ -13,25 +15,31 @@ const body = document.querySelector("body"),
     noteName = body.querySelector('.note-name'),
     noteTitle = body.querySelector('.note-title'),
     noteBody = body.querySelector('.note-body'),
-    markdown_toggle = body.querySelector(".bxl-markdown");
+    markdown_toggle = body.querySelector(".bxl-markdown"),
+    open_file = body.querySelector(".bx-file-find"),
+    open_folder = body.querySelector(".bxs-folder-open");
 
-toggle.addEventListener("click", () => {
-    folder_container.classList.toggle("close");
-    toggle.classList.toggle("close");
-    note_container.classList.toggle("close");
+if (toggle) {
+    toggle.addEventListener("click", () => {
+        folder_container.classList.toggle("close");
+        toggle.classList.toggle("close");
+        note_container.classList.toggle("close");
 
-    if (toggle.classList.contains("bx-chevron-right")) {
-        toggle.classList.remove("bx-chevron-right");
-        toggle.classList.add("bx-chevron-left");
-    } else {
-        toggle.classList.remove("bx-chevron-left");
-        toggle.classList.add("bx-chevron-right");
-    }
-});
+        if (toggle.classList.contains("bx-chevron-right")) {
+            toggle.classList.remove("bx-chevron-right");
+            toggle.classList.add("bx-chevron-left");
+        } else {
+            toggle.classList.remove("bx-chevron-left");
+            toggle.classList.add("bx-chevron-right");
+        }
+    });
+}
 
-markdown_toggle.addEventListener("click", () => {
-    markdown_toggle.classList.toggle("active");
-});
+if (markdown_toggle) {
+    markdown_toggle.addEventListener("click", () => {
+        markdown_toggle.classList.toggle("active");
+    });
+}
 
 // Function to generate directory tree HTML
 function buildDirectoryTreeHTML(directoryPath, callback) {
@@ -50,7 +58,6 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
             fs.stat(filePath, (err, stat) => {
                 if (err) return callback(err);
                 if (stat && stat.isDirectory()) {
-                    
                     buildDirectoryTreeHTML(filePath, (err, childUlElement) => {
                         if (err) return callback(err);
                         const liElement = document.createElement('li'); // Create <li> for folder
@@ -123,7 +130,6 @@ function displayDirectoryContents(directoryPath) {
     });
 }
 
-
 // Function to open a file or directory
 function openItem(filePath, open_file) {
     fs.stat(filePath, (err, stats) => {
@@ -164,20 +170,23 @@ function openItem(filePath, open_file) {
 
 // Event listener for opening the root directory
 document.getElementById('reload').addEventListener('click', () => {
-    displayDirectoryContents('/home/lyvmi/Notas');
+    displayDirectoryContents(notes_directory);
 });
 
 // Initial display: open root directory
-displayDirectoryContents('/home/lyvmi/Notas');
+displayDirectoryContents(notes_directory);
 
 // Save button click event listener
+
 save.addEventListener("click", () => {
     const title = noteTitle.value;
     const note_body = noteBody.value;
     ipcRenderer.send('save-note', { title: title, body: note_body });
 });
 
+
 // Save to cloud button click event listener
+
 save_cloud.addEventListener("click", () => {
     const title = noteTitle.value;
     const note_body = noteBody.value;
@@ -185,3 +194,31 @@ save_cloud.addEventListener("click", () => {
     console.log(title);
     console.log(note_body);
 });
+
+
+// Function to open a file dialog and read the file
+function openFileDialog() {
+    ipcRenderer.invoke('show-open-file-dialog').then(result => {
+        if (!result.canceled) {
+            openItem(result.filePaths[0], true);
+        }
+    }).catch(err => {
+        console.error('Error opening file dialog:', err);
+    });
+}
+
+// Function to open a folder dialog and set it as the new root directory
+function openFolderDialog() {
+    ipcRenderer.invoke('show-open-folder-dialog').then(result => {
+        if (!result.canceled) {
+            notes_directory = result.filePaths[0];
+            displayDirectoryContents(notes_directory);
+        }
+    }).catch(err => {
+        console.error('Error opening folder dialog:', err);
+    });
+}
+
+// Event listeners for the file and folder dialog buttons
+open_file.addEventListener('click', openFileDialog);
+open_folder.addEventListener('click', openFolderDialog);
