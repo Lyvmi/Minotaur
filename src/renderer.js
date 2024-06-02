@@ -5,6 +5,7 @@ const path = require("path");
 let savedTitle = "";
 let savedBody = "";
 let isNoteOpened = false;
+let deleteMode = false;
 let notes_directory = "/home/lyvmi/Notas";
 
 const body = document.querySelector("body"),
@@ -26,7 +27,7 @@ const body = document.querySelector("body"),
     open_folder = body.querySelector(".bxs-folder-open"),
     new_note = body.querySelector("#new-note"),
     new_folder = body.querySelector(".bx-folder-plus"),
-    delete_note = body.querySelector(".bx-trash");
+    deleteButton = body.querySelector(".bx-trash");
 
 toggle.addEventListener("click", () => {
     folder_container.classList.toggle("close");
@@ -106,16 +107,14 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                     const aElement = document.createElement('a');
                     aElement.textContent = file;
                     aElement.href = "#";
+                    aElement.classList.add("file");
                     aElement.dataset.filepath = filePath;
-                    aElement.addEventListener('click', (event) => {
-                        event.preventDefault(); // Prevent default anchor behavior
-                        event.stopPropagation(); // Stop event propagation
-                        openItem(filePath, false);
-                    });
                     aElement.addEventListener('dblclick', (event) => {
-                        event.preventDefault(); // Prevent default anchor behavior
-                        event.stopPropagation(); // Stop event propagation
-                        openItem(filePath, true);
+                        if (!deleteMode) {
+                            event.preventDefault(); // Prevent default anchor behavior
+                            event.stopPropagation(); // Stop event propagation
+                            openItem(filePath, true);
+                        }
                     });
                     liElement.appendChild(aElement);
                     ulElement.appendChild(liElement);
@@ -145,10 +144,12 @@ function displayDirectoryContents(directoryPath) {
         folders.forEach(folder => {
             folder.addEventListener('click', (e) => {
                 e.stopPropagation();
-                folder.classList.toggle('show');
-                const childUl = folder.querySelector('ul');
-                if (childUl) {
-                    childUl.classList.toggle('show');
+                if (!deleteMode) {
+                    folder.classList.toggle('show');
+                    const childUl = folder.querySelector('ul');
+                    if (childUl) {
+                        childUl.classList.toggle('show');
+                    }
                 }
             });
         });
@@ -271,12 +272,68 @@ open_file.addEventListener('click', openFileDialog);
 open_folder.addEventListener('click', openFolderDialog);
 
 function isSaved() {
-    if ((noteBody.value != savedBody || noteTitle.value != savedTitle) && isNoteOpened){
+    if ((noteBody.value != savedBody || noteTitle.value != savedTitle) && isNoteOpened) {
         noteName.classList.add("notSaved");
     }
-    else{
+    else {
         noteName.classList.remove("notSaved");
     }
 }
 
 setInterval(isSaved, 100);
+
+function deleteItem(filePath) {
+    fs.stat(filePath, (err, stats) => {
+        if (err) {
+            console.error('Error accessing file/directory:', err);
+            return;
+        }
+
+        if (stats.isDirectory()) {
+            fs.rmdir(filePath, { recursive: true }, (err) => {
+                if (err) {
+                    console.error('Error deleting directory:', err);
+                    return;
+                }
+                console.log('Directory deleted successfully:', filePath);
+                displayDirectoryContents(notes_directory);
+                // Optionally, update UI or perform any additional actions
+            });
+        } else {
+            fs.unlink(filePath, (err) => {
+                if (err) {
+                    console.error('Error deleting file:', err);
+                    return;
+                }
+                console.log('File deleted successfully:', filePath);
+                displayDirectoryContents(notes_directory);
+                // Optionally, update UI or perform any additional actions
+            });
+        }
+    });
+}
+
+deleteButton.addEventListener('click', () => {
+    deleteMode = !deleteMode; // Toggle delete mode
+    if (deleteMode) {
+        deleteButton.classList.add('active'); // Add a visual indicator for delete mode
+    } else {
+        deleteButton.classList.remove('active'); // Remove visual indicator
+    }
+});
+
+folder_tree.addEventListener('dblclick', (event) => {
+    if (deleteMode) {
+        const target = event.target;
+        if (target.classList.contains('folder')) {
+            const folderName = target.outerText;
+            console.log(folderName);
+            const folderPath = path.join(notes_directory, folderName);
+            deleteItem(folderPath); // Delete folder
+        } else if (target.classList.contains = "file") {
+            const filePath = target.dataset.filepath;
+            console.log("hola");
+            deleteItem(filePath); // Delete file
+        }
+    }
+});

@@ -135,6 +135,9 @@ body {
   transition: 0.3s;
 }
 
+.bx-trash.active{
+  color: var(--primary-color);
+}
 
 .folder-menu {
   color: white;
