@@ -7,6 +7,9 @@
   --note-color: #EEEEEE;
 }
 
+body::-webkit-scrollbar {
+width: 0px;
+}
 
 body {
   height: 100vh;
@@ -241,6 +244,7 @@ zero-md {
   padding: 10px; /* Add padding */
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .note-title {
@@ -248,7 +252,9 @@ zero-md {
   min-height: 48px;
 }
 
-
+zero-md, .note-body {
+  margin-bottom: 35px;
+}
 
 /* OPENING AND CLOSING FOLDER */
 .folder-tree{
