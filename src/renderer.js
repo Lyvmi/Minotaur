@@ -2,6 +2,9 @@ const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
 
+let savedTitle = "";
+let savedBody = "";
+let isNoteOpened = false;
 let notes_directory = "/home/lyvmi/Notas";
 
 const body = document.querySelector("body"),
@@ -62,6 +65,7 @@ new_note.addEventListener("click", () => {
     noteName.innerHTML = "";
     noteTitle.value = "";
     noteBody.value = "";
+    isNoteOpened = false;
 })
 
 // Function to generate directory tree HTML
@@ -175,10 +179,13 @@ function openItem(filePath, open_file) {
                     const fileName = path.basename(filePath);
 
                     if (open_file) {
+                        isNoteOpened = true;
                         noteContent = data.split("---...---.-.-");
                         noteName.innerHTML = fileName;
                         noteTitle.value = noteContent[0];
                         noteBody.value = noteContent[1];
+                        savedTitle = noteContent[0];
+                        savedBody = noteContent[1];
                     }
                     // Display file name and contents
                 });
@@ -203,9 +210,24 @@ displayDirectoryContents(notes_directory);
 // Save button click event listener
 
 save.addEventListener("click", () => {
+    const note_name = noteName.innerHTML;
     const title = noteTitle.value;
     const note_body = noteBody.value;
-    ipcRenderer.send('save-note', { title: title, body: note_body });
+    if (!isNoteOpened) {
+        ipcRenderer.send('save-note', { title: title, body: note_body });
+    } else {
+        const filePath = path.join(notes_directory, `${note_name}`);
+        fs.writeFile(filePath, `${title}---...---.-.-${note_body}`, (err) => {
+            if (err) {
+                console.error('Error saving file:', err);
+            } else {
+                console.log('File saved successfully:', filePath);
+                savedTitle = noteTitle.value;
+                savedBody = noteBody.value;
+                noteName.classList.remove("notSaved");
+            }
+        });
+    }
 });
 
 
@@ -247,4 +269,13 @@ function openFolderDialog() {
 open_file.addEventListener('click', openFileDialog);
 open_folder.addEventListener('click', openFolderDialog);
 
-noteBody.tagName = "zero-md";
+function isSaved() {
+    if ((noteBody.value != savedBody || noteTitle.value != savedTitle) && isNoteOpened){
+        noteName.classList.add("notSaved");
+    }
+    else{
+        noteName.classList.remove("notSaved");
+    }
+}
+
+setInterval(isSaved, 100);

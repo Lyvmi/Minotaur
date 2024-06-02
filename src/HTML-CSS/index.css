@@ -228,6 +228,10 @@ body {
   font-size: small;
 }
 
+.note-name.notSaved::before{
+  content: "• ";
+}
+
 .tool-bar i {
   margin-left: 10px;
   cursor: pointer;
