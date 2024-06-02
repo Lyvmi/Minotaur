@@ -163,7 +163,7 @@ function openItem(filePath, open_file) {
 }
 
 // Event listener for opening the root directory
-document.getElementById('home').addEventListener('click', () => {
+document.getElementById('reload').addEventListener('click', () => {
     displayDirectoryContents('/home/lyvmi/Notas');
 });
 
