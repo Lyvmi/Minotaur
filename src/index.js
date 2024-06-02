@@ -78,7 +78,7 @@ ipcMain.on('save-note', (event, noteData) => {
     title: 'Save Note',
     defaultPath: `${title}.md`,
     filters: [
-      { name: 'Text Files', extensions: ['md'] }
+      { name: 'Text Files', extensions: ['md', "txt"] }
     ]
   }).then(result => {
     isDialogOpen = false;
@@ -114,7 +114,7 @@ ipcMain.handle('show-open-file-dialog', async () => {
   try {
     const result = await dialog.showOpenDialog({
       properties: ['openFile'],
-      filters: [{ name: 'Text Files', extensions: ['txt'] }]
+      filters: [{ name: 'Text Files', extensions: ['txt', "md"] }]
     });
     isDialogOpen = false;
     return result;
