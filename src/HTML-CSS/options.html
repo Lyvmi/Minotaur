@@ -4,73 +4,50 @@
 <head>
   <meta charset="UTF-8" />
   <title>Minotaur</title>
-  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="options.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-  <div class="container ">
-    <nav class="sidebar close">
-      <header>
-        <div class="image-text">
-          <span class="image">
-            <img src="logo.png" alt="Minotaur">
-          </span>
-
-          <div class="text header-text">
-            <span class="name">Minotaur</span>
-            <span class="proffesion">Note app</span>
-          </div>
+  <div class="container">
+    <div class="sidebar">
+      <span class="options">OPCIONES</span>
+      <a href="#">General</a>
+      <a href="#">Apariencia</a>
+    </div>
+    <div class="general-body"></div>
+    <div class="Apariencia-body">
+      <div class="palette-container">
+        <div class="palette">
+          <img src="../img/Color Hunt Palette 222831393e4600adb5eeeeee.png">
         </div>
-      </header>
-      <div class="menu-bar">
-        <div class="menu">
-          <ul class="menu-links">
-            <li class="nav-link">
-              <a href="index.html">
-                  <i class='bx bx-note icon'></i>
-                  <span class=" text nav-text">Notas</span>
-              </a>
-            </li>
-            <li class="nav-link">
-              <a href="./task.html">
-                  <i class='bx bx-task-x icon'></i>
-                  <span class=" text nav-text">Tareas</span>
-              </a>
-            </li>
-            <li class="nav-link">
-              <a href="./calendar.html"">
-                  <i class='bx bx-calendar icon'></i>
-                  <span class=" text nav-text">Calendario</span>
-              </a>
-            </li>
-          </ul>
+        <div class="palette">
+          <img src="../img/Color Hunt Palette 222831393e4600adb5eeeeee.png">
         </div>
-        <div class="bottom-content">
-          <li class="nav-link">
-            <a href="#">
-                <i class='bx bxs-cog icon' ></i>
-                <span class=" text nav-text">Opciones</span>
-            </a>
-          </li>
-          <i class='bx bx-chevron-right toggle'></i>
+        <div class="palette">
+          <img src="../img/Color Hunt Palette 222831393e4600adb5eeeeee.png">
+        </div>
+        <div class="palette">
+          <img src="../img/Color Hunt Palette 222831393e4600adb5eeeeee.png">
+        </div>
+        <div class="palette">
+          <img src="../img/Color Hunt Palette 222831393e4600adb5eeeeee.png">
+        </div>
+        <div class="palette">
+          <img src="../img/Color Hunt Palette 222831393e4600adb5eeeeee.png">
+        </div>
+        <div class="palette">
+          <img src="../img/Color Hunt Palette 222831393e4600adb5eeeeee.png">
         </div>
       </div>
-
-
-
-    </nav>
-
-
-
-
-
-
-
+      <div class="button-container">
+        <input type="button" id="guardar" value="Guardar">
+        <input type="button" id="cancelar" value="Cancelar">
+      </div>
+    </div>
   </div>
-
-  <script src="../renderer.js"></script>
+  <script src="../options.js"></script>
 </body>
 
 </html>
