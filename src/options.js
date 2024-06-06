@@ -13,12 +13,16 @@ const closeButton = document.querySelector('.bx-x');
 function showGeneralBody() {
     generalBody.style.display = 'flex';
     appearanceBody.style.display = 'none';
+    generalLink.classList.add('active');
+    appearanceLink.classList.remove('active');
 }
 
 // Function to show Appearance body and hide General body
 function showAppearanceBody() {
     generalBody.style.display = 'none';
     appearanceBody.style.display = 'flex';
+    appearanceLink.classList.add('active');
+    generalLink.classList.remove('active');
 }
 
 // Event listener for General link

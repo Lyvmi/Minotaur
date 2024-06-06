@@ -29,7 +29,8 @@ body {
 
 /* Sidebar styles */
 .sidebar {
-    position: fixed; /* Fixed position to the left of the screen */
+    position: fixed;
+    /* Fixed position to the left of the screen */
     top: 0;
     left: 0;
     height: 100vh;
@@ -52,101 +53,51 @@ body {
     text-decoration: none;
     font-size: 18px;
     margin: 10px 0;
-    transition: color 0.3s;
+    transition: color 0.3s, background-color 0.3s;
+    /* Added background-color transition */
 }
 
-.sidebar a:hover {
+.sidebar a:hover,
+.sidebar a.active {
     color: var(--primary-color);
+    background-color: rgba(0, 173, 181, 0.2);
+    /* Light background for active link */
+    border-radius: 5px;
+    /* Optional: round the corners of the active link */
+    padding: 10px;
+    /* Optional: add padding to make the active link more prominent */
 }
 
 /* General body and Apariencia body styles */
 .general-body,
 .appearance-body {
-    position: fixed; /* Positioning content fixed within the viewport */
+    position: fixed;
+    /* Positioning content fixed within the viewport */
     top: 0;
-    left: 250px; /* Start content after the sidebar */
+    left: 250px;
+    /* Start content after the sidebar */
     height: 100vh;
-    width: calc(100vw - 250px); /* Adjust width to account for sidebar */
+    width: calc(100vw - 250px);
+    /* Adjust width to account for sidebar */
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
+    justify-content: flex-start;
+    /* Align content to the top */
+    align-items: flex-start;
+    /* Align content to the left */
 }
 
-/* Specific styles for the "Apariencia-body" section */
-.appearance-body {
-    flex-direction: column;
-}
-
+/* Specific styles for the titles */
+.general-body .title,
 .appearance-body .title {
     position: absolute;
-    top:50px;
+    top: 50px;
     left: 40px;
 }
 
-.appearance-body .palette-container {
-    display: flex;
-    flex-wrap: wrap;
-    min-width: 500px;
-    gap: 20px; /* Add more space between palettes */
-    justify-content: center;
-}
-
-.appearance-body .palette {
-    position: relative; /* Positioning for border */
-    width: 150px;
-    height: 150px;
-    border: 3px solid white; /* Always visible white border */
-    border-radius: 10px;
-    overflow: hidden;
-    transition: border-color 0.3s; /* Transition for border color change */
-}
-
-.appearance-body .palette:hover {
-    border-color: var(--primary-color); /* Border color on hover */
-    cursor: pointer;
-}
-
-.appearance-body .palette img {
-    width: 100%;
-    height: 100%;
-    border-radius: 7px; /* Slight rounding for img */
-}
-
-/* Button styles */
-.button-container {
-    position: absolute;
-    bottom: 50px;
-    right: 30px;
-    margin-top: 20px; /* Add space between palettes and buttons */
-}
-
-.appearance-body input[type="button"] {
-    padding: 12px 25px; /* Adjust padding for better appearance */
-    border: none;
-    background-color: var(--primary-color);
-    color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s; /* Transition for background color and box shadow */
-    border-radius: 10px;
-    font-size: 16px; /* Adjust font size */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
-}
-
-.appearance-body input[type="button"]:hover {
-    background-color: #007a7f;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Adjust box shadow on hover */
-}
-
-.bx-x {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    cursor: pointer;
-}
-
+/* Horizontal rules */
+.general-body hr,
 .appearance-body hr {
     position: absolute;
     top: 100px;
@@ -155,12 +106,114 @@ body {
     background-color: var(--folder-color);
     height: 1px;
     margin: 10px;
-  }
-  
-  .appearance-body .palette-title{
+}
+
+/* General content styles */
+.general-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 150px;
+    gap: 20px;
+}
+
+.general-content .section {
+    display: flex;
+    flex-direction: column;
+}
+
+.general-content .section-title {
+    font-size: medium;
+    color: black;
+    margin-bottom: 10px;
+}
+
+/* Specific styles for the "Apariencia-body" section */
+.appearance-body {
+    flex-direction: column;
+}
+
+.appearance-body .palette-title {
     position: absolute;
     top: 130px;
     left: 40px;
     font-size: medium;
     color: black;
-  }
+}
+
+.appearance-body .palette-container {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 500px;
+    gap: 20px;
+    /* Add more space between palettes */
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.appearance-body .palette {
+    position: relative;
+    /* Positioning for border */
+    width: 150px;
+    height: 150px;
+    border: 3px solid white;
+    /* Always visible white border */
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    /* Transition for border color change */
+}
+
+.appearance-body .palette:hover {
+    border-color: var(--primary-color);
+    /* Border color on hover */
+    cursor: pointer;
+}
+
+.appearance-body .palette img {
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    /* Slight rounding for img */
+}
+
+/* Button styles */
+.button-container {
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
+    margin-top: 20px;
+    /* Add space between palettes and buttons */
+}
+
+.appearance-body input[type="button"],
+.general-body input[type="button"] {
+    padding: 12px 25px;
+    /* Adjust padding for better appearance */
+    border: none;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    /* Transition for background color and box shadow */
+    border-radius: 10px;
+    font-size: 16px;
+    /* Adjust font size */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Add box shadow for depth */
+}
+
+.appearance-body input[type="button"]:hover,
+.general-body input[type="button"]:hover {
+    background-color: #007a7f;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    /* Adjust box shadow on hover */
+}
+
+/* Close button */
+.bx-x {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}

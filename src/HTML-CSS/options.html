@@ -13,12 +13,32 @@
   <div class="container">
     <div class="sidebar">
       <span class="options">OPCIONES</span>
-      <a href="#" class="general-link">General</a>
+      <a href="#" class="general-link active">General</a>
       <a href="#" class="appearance-link">Apariencia</a>
     </div>
-    <div class="general-body"></div>
-      <input type="text" id="default-directory">
-    <div class="appearance-body">
+    <div class="general-body" style="display: flex;">
+      <div class="title">General</div>
+      <hr>
+      <div class="general-content">
+        <div class="section">
+          <div class="section-title">Directorio por defecto</div>
+          <label>Actualizar el directorio por defecto actual.</label>
+          <input type="text" id="default-directory">
+          <button class="browse">Buscar</button>
+        </div>
+        <hr>
+        <div class="section">
+          <div class="section-title">Clave de cifrado</div>
+          <label>Actualizar clave de cifrado actual.</label>
+          <input type="password" id="encryption-key">
+          
+        </div>
+      </div>
+      <div class="button-container">
+        <input type="button" id="guardar-general" value="Guardar">
+      </div>
+    </div>
+    <div class="appearance-body" style="display: none;">
       <div class="title">Apariencia</div>
       <hr>
       <div class="palette-title">Escoge una paleta</div>
@@ -46,7 +66,7 @@
         </div>
       </div>
       <div class="button-container">
-        <input type="button" id="cancelar" value="Cancelar">
+        <input type="button" id="reset" value="Restaurar">
         <input type="button" id="guardar" value="Guardar">
       </div>
     </div>
