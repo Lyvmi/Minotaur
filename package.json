@@ -29,6 +29,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@electron/remote": "^2.1.2",
     "electron-squirrel-startup": "^1.0.1",
     "marked": "^12.0.2"
   }
