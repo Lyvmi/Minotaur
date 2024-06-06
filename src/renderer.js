@@ -160,45 +160,39 @@ function displayDirectoryContents(directoryPath) {
 }
 
 // Function to open a file or directory
-function openItem(filePath, open_file) {
-    fs.stat(filePath, (err, stats) => {
-        if (err) {
-            console.error('Error accessing file/directory:', err);
-            return;
-        }
-
-        if (stats.isDirectory()) {
-            displayDirectoryContents(filePath);
-        } else {
-            if ((filePath.endsWith('.md')) || (filePath.endsWith(".txt"))) {
-                fs.readFile(filePath, 'utf8', (err, data) => {
-                    if (err) {
-                        console.error('Error reading file:', err);
-                        return;
-                    }
-
-                    // Extract file name from file path
-                    const fileName = path.basename(filePath);
-
-                    if (open_file) {
-                        isNoteOpened = true;
-                        noteContent = data.split("---...---.-.-");
-                        noteName.innerHTML = fileName;
-                        noteTitle.value = noteContent[0];
-                        noteBody.value = noteContent[1];
-                        savedTitle = noteContent[0];
-                        savedBody = noteContent[1];
-                    }
-                    // Display file name and contents
-                });
-            }
-            else {
-                console.log('Error: Selected file is not a .txt file.');
+function openItem(filePath) {
+    let element_name = filePath.split("/");
+    element_name = element_name.slice(-1);
+    let confirm = window.confirm('¿Seguro que quieres cargar la nota "' + element_name + '"?');
+    if (confirm) {
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                console.error('Error reading file:', err);
                 return;
             }
 
-        }
-    });
+            // Extract file name from file path
+            const fileName = path.basename(filePath);
+
+            // Split the data into title and body if it's a valid note format
+            const noteContent = data.split("---...---.-.-");
+            if (noteContent.length !== 2) {
+                console.error('Invalid note format:', filePath);
+                return;
+            }
+
+            // Update the UI with the file name and note content
+            noteName.innerHTML = fileName;
+            noteTitle.value = noteContent[0];
+            noteBody.value = noteContent[1];
+            savedTitle = noteContent[0];
+            savedBody = noteContent[1];
+            isNoteOpened = true;
+
+            // Display file name and contents
+
+        });
+    }
 }
 
 // Event listener for opening the root directory
@@ -305,7 +299,7 @@ function deleteItem(filePath) {
                 });
             }
         } else {
-            let confirm = window.confirm('¿Seguro que quieres borrar el fichero "' + element_name + '"?');
+            let confirm = window.confirm('¿Seguro que quieres borrar la nota "' + element_name + '"?');
             if (confirm) {
                 fs.unlink(filePath, (err) => {
                     if (err) {
