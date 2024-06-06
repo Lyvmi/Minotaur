@@ -1,9 +1,12 @@
 const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 
 function loadConfig() {
-    const configPath = path.join(__dirname, 'config.json');
+    const homeDirectory = os.homedir();
+    const configDir = path.join(homeDirectory, '.minotaur');
+    const configPath = path.join(configDir, 'config.json');
     try {
         const data = fs.readFileSync(configPath, 'utf8');
         const config = JSON.parse(data);
@@ -15,7 +18,6 @@ function loadConfig() {
 }
 
 const config = loadConfig();
-console.log(config);
 
 let savedTitle = "";
 let savedBody = "";
