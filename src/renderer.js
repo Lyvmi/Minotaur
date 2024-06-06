@@ -59,8 +59,17 @@ markdown_toggle.addEventListener("click", () => {
 });
 
 clear_note.addEventListener("click", () => {
-    noteTitle.value = "";
-    noteBody.value = "";
+    if (isNoteOpened) {
+        let confirm = window.confirm("¿Seguro que quieres limpiar la nota?\nNo se guardarán los cambios automaticamente.");
+        if (confirm) {
+            noteTitle.value = "";
+            noteBody.value = "";
+        }
+    }
+    else {
+        noteTitle.value = "";
+        noteBody.value = "";
+    }
 });
 
 new_note.addEventListener("click", () => {
@@ -231,7 +240,7 @@ save.addEventListener("click", () => {
     const title = noteTitle.value;
     const note_body = noteBody.value;
     if (!isNoteOpened) {
-        ipcRenderer.send('save-note', { title: title, body: note_body });
+        ipcRenderer.send('save-note', { title: title, body: note_body, defaultRootDirectory: notes_directory });
     } else {
         const filePath = path.join(notes_directory, `${note_name}`);
         fs.writeFile(filePath, `${title}---...---.-.-${note_body}`, (err) => {

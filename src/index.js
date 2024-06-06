@@ -65,6 +65,7 @@ nativeTheme.themeSource = "light";
 ipcMain.on('save-note', (event, noteData) => {
   const title = noteData.title;
   const body = noteData.body;
+  const defaultRootDirectory = noteData.defaultRootDirectory
 
   if (isDialogOpen) {
     return;
@@ -75,7 +76,7 @@ ipcMain.on('save-note', (event, noteData) => {
   // Open a save dialog
   dialog.showSaveDialog({
     title: 'Save Note',
-    defaultPath: `${title}.md`,
+    defaultPath: path.join(defaultRootDirectory, `${title}.md`),
     filters: [
       { name: 'Text Files', extensions: ['md', "txt"] }
     ]
