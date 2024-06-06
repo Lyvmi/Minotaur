@@ -337,3 +337,35 @@ folder_tree.addEventListener('dblclick', (event) => {
         }
     }
 });
+
+function createNewFolder(folderPath) {
+    fs.mkdir(folderPath, (err) => {
+        if (err) {
+            console.error('Error creating folder:', err);
+            alert('Error creating folder. Please try again.');
+        } else {
+            console.log('Folder created successfully:', folderPath);
+            displayDirectoryContents(notes_directory); // Refresh the directory view
+        }
+    });
+}
+
+new_folder.addEventListener("click", () => {
+    const folder_name = document.createElement("input");
+    folder_name.type = "text";
+    folder_name.classList = "folder";
+    folder_tree.appendChild(folder_name);
+    folder_name.focus();
+    folder_name.addEventListener("focusout", (e) => {
+        const newFolderName = folder_name.value;
+        if (newFolderName.includes(".") || !newFolderName) {
+            console.log("Name can't contain '.' or be null");
+            folder_name.remove();
+        }
+        else {
+            const newFolderPath = path.join(notes_directory, newFolderName);
+            folder_name.remove();
+            createNewFolder(newFolderPath);
+        }
+    })
+})
