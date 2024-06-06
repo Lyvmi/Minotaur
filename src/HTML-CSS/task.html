@@ -1,93 +1,79 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8" />
-  <title>Minotaur</title>
-  <link rel="stylesheet" href="task.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta charset="UTF-8" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="task.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
 <body>
-  <div class="container ">
+    <div class="container">
+        <nav class="sidebar">
+            <div class="menu-bar">
+                <div class="menu">
+                    <ul class="menu-links">
+                        <li class="nav-link"><a href="./index.html"><i class='bx bx-note icon' title="Notas"></i></a></li>
+                        <li class="nav-link"><a href=""><i class='bx bx-task-x icon active' title="Tareas"></i></a></li>
+                        <li class="nav-link"><a href="./calendar.html"><i class='bx bx-calendar icon' title="Calendario"></i></a></li>
+                    </ul>
+                </div>
+                <div class="bottom-content">
+                    <ul class="menu-links">
+                        <li class="nav-link"><a href="./options.html"><i class='bx bxs-cog icon' title="Opciones"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-    <nav class="sidebar">
-      <div class="menu-bar">
-        <div class="menu">
-          <ul class="menu-links">
-            <li class="nav-link">
-              <a href="./index.html">
-                <i class='bx bx-note icon' title="Notas"></i>
-              </a>
-            </li>
-            <li class="nav-link">
-              <a href="">
-                <i class='bx bx-task-x icon active' title="Tareas"></i>
-              </a>
-            </li>
-            <li class="nav-link">
-              <a href="./calendar.html">
-                <i class='bx bx-calendar icon' title="Calendario"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="bottom-content">
-          <ul class="menu-links">
-            <li class="nav-link">
-              <a href="./options.html">
-                <i class='bx bxs-cog icon' title="Opciones"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="task-body">
-      <div class="task-container">
-        <div class="todo">
-          <div class="titles">
-            <h3>Pendientes</h3>
-            <div class="title-icons">
-              <i class='bx bx-plus'></i>
+        <div class="task-body">
+            <div class="task-container">
+                <div class="todo">
+                    <div class="titles">
+                        <h3>Todo</h3>
+                        <div class="title-icons"><i class='bx bx-plus'></i></div>
+                    </div>
+                    <hr>
+                    <div class="tasks" id="todo-tasks"></div>
+                </div>
+                <div class="doing">
+                    <div class="titles">
+                        <h3>Doing</h3>
+                        <div class="title-icons"><i class='bx bx-plus'></i></div>
+                    </div>
+                    <hr>
+                    <div class="tasks" id="doing-tasks"></div>
+                </div>
+                <div class="done">
+                    <div class="titles">
+                        <h3>Done</h3>
+                        <div class="title-icons"><i class='bx bx-plus'></i></div>
+                    </div>
+                    <hr>
+                    <div class="tasks" id="done-tasks"></div>
+                </div>
             </div>
-          </div>
-          <hr>
-          <div class="tasks">
-            <!-- Tasks for todo -->
-          </div>
         </div>
-        <div class="doing">
-          <div class="titles">
-            <h3>Haciendo</h3>
-            <div class="title-icons">
-              <i class='bx bx-plus'></i>
-            </div>
-          </div>
-          <hr>
-          <div class="tasks">
-            <!-- Tasks for doing -->
-          </div>
-        </div>
-        <div class="done">
-          <div class="titles">
-            <h3>Completadas</h3>
-            <div class="title-icons">
-              <i class='bx bx-plus'></i>
-            </div>
-          </div>
-          <hr>
-          <div class="tasks">
-            <!-- Tasks for done -->
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <script src="../task.js"></script>
+    <!-- Task Modal -->
+    <div class="modal" id="task-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Add Task</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <input class="input" type="text" id="task-input" placeholder="Task description">
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" id="add-task-btn">Add Task</button>
+                <button class="button" id="cancel-task-btn">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../task.js"></script>
 </body>
-
 </html>
