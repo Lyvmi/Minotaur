@@ -1,6 +1,9 @@
 const { ipcRenderer } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const os = require("os");
+
+const homeDirectory = os.homedir();
 
 let tasks = {
     todo: [],
@@ -20,7 +23,9 @@ function loadTasks() {
 
 // Save tasks to JSON
 function saveTasks() {
-    const filePath = path.join(__dirname, 'tasks.json');
+    const homeDirectory = os.homedir();
+    const tasksDir = path.join(homeDirectory, '.minotaur');
+    const filePath = path.join(tasksDir, 'tasks.json');
     fs.writeFileSync(filePath, JSON.stringify(tasks, null, 2));
 }
 
