@@ -47,7 +47,8 @@ const body = document.querySelector("body"),
     new_note = body.querySelector("#new-note"),
     new_folder = body.querySelector(".bx-folder-plus"),
     deleteButton = body.querySelector(".bx-trash"),
-    encrypt = body.querySelector(".encrypt");
+    encrypt = body.querySelector(".encrypt"),
+    decrypt = body.querySelector(".decrypt");
 
 toggle.addEventListener("click", () => {
     folder_container.classList.toggle("close");
@@ -67,30 +68,29 @@ function encryptNote(key, text) {
     const cipher = crypto.createCipher('aes-256-cbc', key);
     let encryptedText = cipher.update(text, 'utf8', 'hex');
     encryptedText += cipher.final('hex');
-    SaveNote(encryptedText);
+    return encryptedText;
 }
 
 function decryptNote(key, encryptedText) {
-    const decipher = crypto.createDecipher('aes-256-cbc', key);
-    let decryptedText = decipher.update(encryptedText, 'hex', 'utf8');
-    decryptedText += decipher.final('utf8');
-    return decryptedText;
+    try {
+        const decipher = crypto.createDecipher('aes-256-cbc', key);
+        let decryptedText = decipher.update(encryptedText, 'hex', 'utf8');
+        decryptedText += decipher.final('utf8');
+        return decryptedText;
+    } catch (error) {
+        console.error('Error decrypting note:', error);
+        return null; // Return null or handle the error appropriately
+    }
 }
 
 encrypt.addEventListener("click", () => {
-    if (encrypt.classList.contains("bx-lock-open")) {
-        encrypt.classList.remove("bx-lock-open");
-        encrypt.classList.add("bx-lock");
-        encrypt.title = "Desencriptar";
         let note_body = noteBody.value;
-        encryptNote(key, note_body);
-    }
-    else {
-        encrypt.classList.remove("bx-lock");
-        encrypt.classList.add("bx-lock-open");
-        encrypt.title = "Encriptar";
-        decryptNote();
-    }
+        noteBody.value = encryptNote(key, note_body);
+});
+
+decrypt.addEventListener("click", () => {
+    let note_body = noteBody.value;
+    noteBody.value = decryptNote(key, note_body);
 });
 
 markdown_toggle.addEventListener("click", () => {
@@ -307,12 +307,15 @@ function SaveNote(encBody) {
     }
 }
 
+
+
 save.addEventListener("click", () => {
     SaveNote();
 });
 
 ipcRenderer.on("note-saved", () => {
     displayDirectoryContents(notes_directory);
+    isNoteOpened = true;
 });
 
 // Save to cloud button click event listener
