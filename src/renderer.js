@@ -284,31 +284,39 @@ setInterval(isSaved, 100);
 
 function deleteItem(filePath) {
     fs.stat(filePath, (err, stats) => {
+        let element_name = filePath.split("/");
+        element_name = element_name.slice(-1);
         if (err) {
             console.error('Error accessing file/directory:', err);
             return;
         }
 
         if (stats.isDirectory()) {
-            fs.rmdir(filePath, { recursive: true }, (err) => {
-                if (err) {
-                    console.error('Error deleting directory:', err);
-                    return;
-                }
-                console.log('Directory deleted successfully:', filePath);
-                displayDirectoryContents(notes_directory);
-                // Optionally, update UI or perform any additional actions
-            });
+            let confirm = window.confirm('¿Seguro que quieres borrar el directorio "' + element_name + '"?');
+            if (confirm) {
+                fs.rmdir(filePath, { recursive: true }, (err) => {
+                    if (err) {
+                        console.error('Error deleting directory:', err);
+                        return;
+                    }
+                    console.log('Directory deleted successfully:', filePath);
+                    displayDirectoryContents(notes_directory);
+                    // Optionally, update UI or perform any additional actions
+                });
+            }
         } else {
-            fs.unlink(filePath, (err) => {
-                if (err) {
-                    console.error('Error deleting file:', err);
-                    return;
-                }
-                console.log('File deleted successfully:', filePath);
-                displayDirectoryContents(notes_directory);
-                // Optionally, update UI or perform any additional actions
-            });
+            let confirm = window.confirm('¿Seguro que quieres borrar el fichero "' + element_name + '"?');
+            if (confirm) {
+                fs.unlink(filePath, (err) => {
+                    if (err) {
+                        console.error('Error deleting file:', err);
+                        return;
+                    }
+                    console.log('File deleted successfully:', filePath);
+                    displayDirectoryContents(notes_directory);
+                    // Optionally, update UI or perform any additional actions
+                });
+            }
         }
     });
 }
@@ -330,9 +338,8 @@ folder_tree.addEventListener('dblclick', (event) => {
             console.log(folderName);
             const folderPath = path.join(notes_directory, folderName);
             deleteItem(folderPath); // Delete folder
-        } else if (target.classList.contains = "file") {
+        } else if (target.classList.contains("file")) {
             const filePath = target.dataset.filepath;
-            console.log("hola");
             deleteItem(filePath); // Delete file
         }
     }
@@ -341,8 +348,11 @@ folder_tree.addEventListener('dblclick', (event) => {
 function createNewFolder(folderPath) {
     fs.mkdir(folderPath, (err) => {
         if (err) {
-            console.error('Error creating folder:', err);
-            alert('Error creating folder. Please try again.');
+            setTimeout(() => {
+                console.error('Error creating folder:', err);
+                alert('Error creating folder. Please try again.');
+            }, 150);
+
         } else {
             console.log('Folder created successfully:', folderPath);
             displayDirectoryContents(notes_directory); // Refresh the directory view
