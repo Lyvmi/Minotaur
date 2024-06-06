@@ -419,9 +419,7 @@ folder_tree.addEventListener('dblclick', (event) => {
     if (deleteMode) {
         const target = event.target;
         if (target.classList.contains('folder')) {
-            const folderName = target.outerText;
-            console.log(folderName);
-            const folderPath = path.join(notes_directory, folderName);
+            const folderPath = target.dataset.filepath;
             deleteItem(folderPath); // Delete folder
         } else if (target.classList.contains("file")) {
             const filePath = target.dataset.filepath;
