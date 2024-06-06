@@ -1,5 +1,5 @@
+/* Theme Colors */
 :root {
-  /* THEME COLORS */
   --body-color: #e4e9f7;
   --sidebar-color: #222831;
   --primary-color: #00ADB5;
@@ -7,10 +7,12 @@
   --note-color: #EEEEEE;
 }
 
+/* Scrollbar */
 body::-webkit-scrollbar {
-width: 0px;
+  width: 0px;
 }
 
+/* Body */
 body {
   height: 100vh;
   background: var(--body-color);
@@ -19,7 +21,7 @@ body {
   display: flex;
 }
 
-/* SIDEBAR */
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -40,6 +42,13 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.sidebar .menu-bar {
+  height: calc(100% - 150px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebar li {
@@ -76,14 +85,7 @@ body {
   color: var(--primary-color);
 }
 
-.sidebar .menu-bar {
-  height: calc(100% - 150px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* FOLDER CONTAINER */
+/* Folder Container */
 .folder-container {
   position: fixed;
   top: 0;
@@ -103,39 +105,39 @@ body {
   left: -250px;
 }
 
-.folder-buttons{
+.folder-buttons {
   font-size: 24px;
   cursor: pointer;
 }
 
-.folder-buttons i{
+.folder-buttons i {
   margin: 5px;
 }
 
-.folder-buttons i:hover{
+.folder-buttons i:hover {
   color: var(--primary-color);
   transition: 0.3s;
 }
 
-.folder-buttons .bxl-markdown.active{
+.folder-buttons .bxl-markdown.active {
   color: var(--primary-color);
 }
 
-.folder-options{
+.folder-options {
   font-size: 24px;
   cursor: pointer;
 }
 
-.folder-options i{
+.folder-options i {
   margin: 5px;
 }
 
-.folder-options i:hover{
+.folder-options i:hover {
   color: var(--primary-color);
   transition: 0.3s;
 }
 
-.bx-trash.active{
+.bx-trash.active {
   color: var(--primary-color);
 }
 
@@ -147,8 +149,7 @@ body {
   width: 100%;
 }
 
-
-
+/* Current Path Display */
 #current-path {
   margin-top: 20px;
   font-size: 14px;
@@ -161,11 +162,7 @@ body {
   font-weight: bold;
 }
 
-
-
-
-
-/* NOTE CONTAINER */
+/* Note Container */
 .note-container {
   position: fixed;
   top: 0;
@@ -173,8 +170,8 @@ body {
   height: 100%;
   width: calc(100vw - 300px);
   background: var(--note-color);
-  padding: 0; /* Remove padding */
-  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .note-container hr {
@@ -194,7 +191,7 @@ body {
   flex-direction: column;
   height: 100%;
   margin: 0px 50px;
-  padding: 10px; /* Add padding to the note editor */
+  padding: 10px;
 }
 
 .note-title {
@@ -213,7 +210,7 @@ body {
   border: none;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  resize: none; /* Prevent resizing */
+  resize: none;
 }
 
 .tool-bar {
@@ -231,7 +228,7 @@ body {
   font-size: small;
 }
 
-.note-name.notSaved::before{
+.note-name.notSaved::before {
   content: "• ";
 }
 
@@ -245,10 +242,10 @@ body {
 zero-md {
   width: 100%;
   margin-bottom: 5px;
-  background-color: var(--note-color); /* Set background color */
-  border: none; /* Remove border */
-  outline: none; /* Remove outline */
-  padding: 10px; /* Add padding */
+  background-color: var(--note-color);
+  border: none;
+  outline: none;
+  padding: 10px;
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   overflow-x: hidden;
@@ -256,15 +253,16 @@ zero-md {
 
 .note-title {
   font-weight: bold;
-  min-height: 48px;
+  min-height: 48px
 }
 
-zero-md, .note-body {
+zero-md,
+.note-body {
   margin-bottom: 35px;
 }
 
-/* OPENING AND CLOSING FOLDER */
-.folder-tree{
+/* Opening and Closing Folder */
+.folder-tree {
   color: white;
 }
 
@@ -291,7 +289,6 @@ zero-md, .note-body {
   margin-right: 5px;
 }
 
-
 .folder-tree ul ul {
   display: none;
   margin-left: 10px;
@@ -303,6 +300,6 @@ zero-md, .note-body {
   display: block;
 }
 
-.folder-tree .folder.show::before{
+.folder-tree .folder.show::before {
   content: "v";
 }
