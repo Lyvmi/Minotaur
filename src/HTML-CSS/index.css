@@ -291,8 +291,8 @@ zero-md,
 
 .folder-tree ul ul {
   display: none;
-  margin-left: 10px;
-  padding-left: 5px;
+  padding-left: 3px;
+  margin-left: 4px;
   border-left: 1px solid #ccc;
 }
 
@@ -302,4 +302,16 @@ zero-md,
 
 .folder-tree .folder.show::before {
   content: "v";
+}
+
+.folder-tree .folder{
+  width: 100%;
+}
+
+.folder-tree .file:hover, .folder-tree .folder:hover{
+  background-color: rgb(39, 39, 39);
+}
+
+.folder-tree .file{
+  color: white;
 }

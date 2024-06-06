@@ -90,7 +90,7 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                     buildDirectoryTreeHTML(filePath, (err, childUlElement) => {
                         if (err) return callback(err);
                         const liElement = document.createElement('li'); // Create <li> for folder
-                        const folderElement = document.createElement('span'); // Create <span> for folder name
+                        const folderElement = document.createElement('div'); // Create <span> for folder name
                         folderElement.textContent = file;
                         folderElement.classList.add('folder');
                         liElement.appendChild(folderElement);
