@@ -73,8 +73,8 @@ new_note.addEventListener("click", () => {
 // Function to generate directory tree HTML
 function buildDirectoryTreeHTML(directoryPath, callback) {
     fs.readdir(directoryPath, (err, list) => {
-        if (err) return callback(err);
-
+        if (err) return callback(err);;
+        list.sort((a, b) => a.localeCompare(b));
         const ulElement = document.createElement('ul'); // Create the root <ul> element
 
         let pending = list.length;
@@ -93,8 +93,8 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                         const folderElement = document.createElement('span'); // Create <span> for folder name
                         folderElement.textContent = file;
                         folderElement.classList.add('folder');
-                        folderElement.appendChild(childUlElement);
                         liElement.appendChild(folderElement);
+                        liElement.appendChild(childUlElement);
                         ulElement.appendChild(liElement);
 
                         if (!--pending) {
@@ -140,13 +140,13 @@ function displayDirectoryContents(directoryPath) {
         folder_tree.appendChild(ulElement); // Append the generated HTML
 
         // Add event listeners to new folder elements
-        const folders = document.querySelectorAll('.folder');
+        const folders = folder_tree.querySelectorAll('.folder');
         folders.forEach(folder => {
-            folder.addEventListener('click', (e) => {
-                e.stopPropagation();
+            folder.addEventListener('click', (event) => {
+                event.stopPropagation();
                 if (!deleteMode) {
-                    folder.classList.toggle('show');
-                    const childUl = folder.querySelector('ul');
+                    folder.classList.toggle("show");
+                    const childUl = folder.nextElementSibling; // Get the next sibling, which should be the <ul>
                     if (childUl) {
                         childUl.classList.toggle('show');
                     }
