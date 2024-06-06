@@ -64,10 +64,22 @@ clear_note.addEventListener("click", () => {
 });
 
 new_note.addEventListener("click", () => {
-    noteName.innerHTML = "";
-    noteTitle.value = "";
-    noteBody.value = "";
-    isNoteOpened = false;
+    if (isNoteOpened) {
+        let confirm = window.confirm("¿Seguro que quieres crear una nueva nota?\nLos cambios no guardados desapareceran.");
+        if (confirm) {
+            noteName.innerHTML = "";
+            noteTitle.value = "";
+            noteBody.value = "";
+            isNoteOpened = false;
+        }
+    }
+    else {
+        noteName.innerHTML = "";
+        noteTitle.value = "";
+        noteBody.value = "";
+        isNoteOpened = false;
+    }
+
 })
 
 // Function to generate directory tree HTML
@@ -373,7 +385,7 @@ function nameNewFolder(element) {
     folder_name.classList = "folder";
     if (element) {
         const folder = document.getElementById(element)
-        if (!folder.classList.contains("show")){
+        if (!folder.classList.contains("show")) {
             folder.classList.add("show")
         }
         folder.appendChild(folder_name);
@@ -391,7 +403,7 @@ function nameNewFolder(element) {
                 sent = true
             }
             else {
-                const newFolderPath = path.join(notes_directory,element,newFolderName);
+                const newFolderPath = path.join(notes_directory, element, newFolderName);
                 folder_name.remove();
                 sent = true;
                 createNewFolder(newFolderPath);
