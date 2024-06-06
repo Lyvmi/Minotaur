@@ -2,6 +2,7 @@ const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
+const crypto = require("crypto");
 
 function loadConfig() {
     const homeDirectory = os.homedir();
@@ -24,6 +25,7 @@ let savedBody = "";
 let isNoteOpened = false;
 let deleteMode = false;
 let notes_directory = config.defaultDirectory;
+let key = config.encryptionKey;
 
 const body = document.querySelector("body"),
     toggle = body.querySelector(".toggle"),
@@ -44,7 +46,8 @@ const body = document.querySelector("body"),
     open_folder = body.querySelector(".bxs-folder-open"),
     new_note = body.querySelector("#new-note"),
     new_folder = body.querySelector(".bx-folder-plus"),
-    deleteButton = body.querySelector(".bx-trash");
+    deleteButton = body.querySelector(".bx-trash"),
+    encrypt = body.querySelector(".encrypt");
 
 toggle.addEventListener("click", () => {
     folder_container.classList.toggle("close");
@@ -60,7 +63,35 @@ toggle.addEventListener("click", () => {
     }
 });
 
+function encryptNote(key, text) {
+    const cipher = crypto.createCipher('aes-256-cbc', key);
+    let encryptedText = cipher.update(text, 'utf8', 'hex');
+    encryptedText += cipher.final('hex');
+    SaveNote(encryptedText);
+}
 
+function decryptNote(key, encryptedText) {
+    const decipher = crypto.createDecipher('aes-256-cbc', key);
+    let decryptedText = decipher.update(encryptedText, 'hex', 'utf8');
+    decryptedText += decipher.final('utf8');
+    return decryptedText;
+}
+
+encrypt.addEventListener("click", () => {
+    if (encrypt.classList.contains("bx-lock-open")) {
+        encrypt.classList.remove("bx-lock-open");
+        encrypt.classList.add("bx-lock");
+        encrypt.title = "Desencriptar";
+        let note_body = noteBody.value;
+        encryptNote(key, note_body);
+    }
+    else {
+        encrypt.classList.remove("bx-lock");
+        encrypt.classList.add("bx-lock-open");
+        encrypt.title = "Encriptar";
+        decryptNote();
+    }
+});
 
 markdown_toggle.addEventListener("click", () => {
     markdown_toggle.classList.toggle("active");
@@ -252,10 +283,13 @@ displayDirectoryContents(notes_directory);
 
 // Save button click event listener
 
-save.addEventListener("click", () => {
+function SaveNote(encBody) {
     const note_name = noteName.innerHTML;
     const title = noteTitle.value;
-    const note_body = noteBody.value;
+    let note_body = noteBody.value;
+    if (encBody) {
+        note_body = encBody;
+    }
     if (!isNoteOpened) {
         ipcRenderer.send('save-note', { title: title, body: note_body, defaultRootDirectory: notes_directory });
     } else {
@@ -271,6 +305,10 @@ save.addEventListener("click", () => {
             }
         });
     }
+}
+
+save.addEventListener("click", () => {
+    SaveNote();
 });
 
 ipcRenderer.on("note-saved", () => {
@@ -338,6 +376,7 @@ function deleteItem(filePath) {
         if (stats.isDirectory()) {
             let confirm = window.confirm('¿Seguro que quieres borrar el directorio "' + element_name + '"?');
             if (confirm) {
+
                 fs.rmdir(filePath, { recursive: true }, (err) => {
                     if (err) {
                         console.error('Error deleting directory:', err);
@@ -463,3 +502,4 @@ new_folder.addEventListener("click", () => {
 ipcRenderer.on("add-folder", (e, element) => {
     nameNewFolder(element);
 });
+
