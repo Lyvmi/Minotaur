@@ -168,3 +168,8 @@ body {
 #task-input {
     width: 100%;
 }
+
+.tasks.drag-over {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 2px dashed var(--primary-color);
+}

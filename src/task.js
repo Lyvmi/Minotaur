@@ -13,7 +13,9 @@ let tasks = {
 
 // Load tasks from JSON
 function loadTasks() {
-    const filePath = path.join(__dirname, 'tasks.json');
+    const homeDirectory = os.homedir();
+    const tasksDir = path.join(homeDirectory, '.minotaur');
+    const filePath = path.join(tasksDir, 'tasks.json');
     if (fs.existsSync(filePath)) {
         const data = fs.readFileSync(filePath);
         tasks = JSON.parse(data);
