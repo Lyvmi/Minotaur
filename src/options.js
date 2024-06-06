@@ -30,7 +30,7 @@ appearanceLink.addEventListener('click', () => {
 
 // Event listener for the close button
 closeButton.addEventListener('click', () => {
-    window.location.href = 'index.html';
+    window.history.back();
 });
 
 // Event listener for the general save button
