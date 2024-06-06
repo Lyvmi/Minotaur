@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, ipcMain, nativeTheme } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, nativeTheme, Menu } = require('electron');
 const path = require('node:path');
 const fs = require("fs");
 
@@ -144,4 +144,12 @@ ipcMain.handle('show-open-folder-dialog', async () => {
     console.error('Error showing open folder dialog:', err);
     return { canceled: true };
   }
+});
+
+ipcMain.on('show-context-menu', (event, x, y, element) => {
+  const contextMenu = Menu.buildFromTemplate([
+      { label: 'Nueva carpeta', click: () => event.reply("add-folder", element) },
+      { label: 'Nueva nota', click: () => event.reply("add-note", element) }
+  ]);
+  contextMenu.popup({ window: BrowserWindow.getFocusedWindow(), x, y });
 });

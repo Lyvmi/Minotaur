@@ -93,6 +93,7 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                         const folderElement = document.createElement('div'); // Create <span> for folder name
                         folderElement.textContent = file;
                         folderElement.classList.add('folder');
+                        folderElement.id = file;
                         liElement.appendChild(folderElement);
                         liElement.appendChild(childUlElement);
                         ulElement.appendChild(liElement);
@@ -151,6 +152,14 @@ function displayDirectoryContents(directoryPath) {
                         childUl.classList.toggle('show');
                     }
                 }
+            });
+
+            folder.addEventListener("contextmenu", (e) => {
+                let folderName = folder.innerHTML
+                e.preventDefault();
+                const x = e.clientX;
+                const y = e.clientY;
+                ipcRenderer.send("show-context-menu", x, y, folderName);
             });
         });
 
@@ -357,22 +366,62 @@ function createNewFolder(folderPath) {
     });
 }
 
-new_folder.addEventListener("click", () => {
+function nameNewFolder(element) {
     const folder_name = document.createElement("input");
+    let sent = false;
     folder_name.type = "text";
     folder_name.classList = "folder";
-    folder_tree.appendChild(folder_name);
+    if (element) {
+        const folder = document.getElementById(element)
+        if (!folder.classList.contains("show")){
+            folder.classList.add("show")
+        }
+        folder.appendChild(folder_name);
+    }
+    else {
+        folder_tree.appendChild(folder_name);
+    }
     folder_name.focus();
     folder_name.addEventListener("focusout", (e) => {
-        const newFolderName = folder_name.value;
-        if (newFolderName.includes(".") || !newFolderName) {
-            console.log("Name can't contain '.' or be null");
-            folder_name.remove();
+        if (!sent) {
+            const newFolderName = folder_name.value;
+            if (newFolderName.includes(".") || !newFolderName) {
+                console.log("Name can't contain '.' or be null");
+                folder_name.remove();
+                sent = true
+            }
+            else {
+                const newFolderPath = path.join(notes_directory,element,newFolderName);
+                folder_name.remove();
+                sent = true;
+                createNewFolder(newFolderPath);
+
+            }
         }
-        else {
-            const newFolderPath = path.join(notes_directory, newFolderName);
-            folder_name.remove();
-            createNewFolder(newFolderPath);
+    });
+
+    folder_name.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" && !sent) {
+            const newFolderName = folder_name.value;
+            if (newFolderName.includes(".") || !newFolderName) {
+                console.log("Name can't contain '.' or be null");
+                folder_name.remove();
+                sent = true;
+            }
+            else {
+                const newFolderPath = path.join(notes_directory, newFolderName);
+                folder_name.remove();
+                sent = true;
+                createNewFolder(newFolderPath);
+            }
         }
-    })
+    });
+
+}
+new_folder.addEventListener("click", () => {
+    nameNewFolder();
 })
+
+ipcRenderer.on("add-folder", (e, element) => {
+    nameNewFolder(element);
+});
