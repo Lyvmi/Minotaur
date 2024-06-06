@@ -1,0 +1,75 @@
+:root {
+    --body-color: #e4e9f7;
+    --sidebar-color: #222831;
+    --primary-color: #00ADB5;
+    --folder-color: #393E46;
+    --note-color: #EEEEEE;
+  }
+  
+  /* Scrollbar */
+  body::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+  /* Body */
+  body {
+    height: 100vh;
+    background: var(--body-color);
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 10px 0px;
+    width: 50px;
+    background: var(--sidebar-color);
+    transition: width 0.3s;
+  }
+  
+
+  .sidebar .menu-bar {
+    height: calc(100% - 150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .sidebar li {
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar li .icon {
+    min-width: 50px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: lightgray;
+  }
+  
+  .sidebar li .icon.active {
+    color: var(--primary-color);
+  }
+  
+  .sidebar li a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 6px;
+  }
+  
+  .sidebar li a:hover .icon {
+    color: var(--primary-color);
+  }
