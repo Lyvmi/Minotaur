@@ -2,11 +2,26 @@ const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
 
+function loadConfig() {
+    const configPath = path.join(__dirname, 'config.json');
+    try {
+        const data = fs.readFileSync(configPath, 'utf8');
+        const config = JSON.parse(data);
+        return config;
+    } catch (err) {
+        console.error('Error reading config file:', err);
+        window.location.href = "options.html";
+    }
+}
+
+const config = loadConfig();
+console.log(config);
+
 let savedTitle = "";
 let savedBody = "";
 let isNoteOpened = false;
 let deleteMode = false;
-let notes_directory = "/home/lyvmi/Notas";
+let notes_directory = config.defaultDirectory;
 
 const body = document.querySelector("body"),
     toggle = body.querySelector(".toggle"),
