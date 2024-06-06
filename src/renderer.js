@@ -84,8 +84,8 @@ function decryptNote(key, encryptedText) {
 }
 
 encrypt.addEventListener("click", () => {
-        let note_body = noteBody.value;
-        noteBody.value = encryptNote(key, note_body);
+    let note_body = noteBody.value;
+    noteBody.value = encryptNote(key, note_body);
 });
 
 decrypt.addEventListener("click", () => {
@@ -161,6 +161,7 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                         const liElement = document.createElement('li'); // Create <li> for folder
                         const folderElement = document.createElement('div'); // Create <span> for folder name
                         folderElement.textContent = file;
+                        folderElement.dataset.filepath = filePath
                         folderElement.classList.add('folder');
                         folderElement.id = file;
                         liElement.appendChild(folderElement);
@@ -224,11 +225,11 @@ function displayDirectoryContents(directoryPath) {
             });
 
             folder.addEventListener("contextmenu", (e) => {
-                let folderName = folder.innerHTML
+                let folderpath = folder.dataset.filepath;
                 e.preventDefault();
                 const x = e.clientX;
                 const y = e.clientY;
-                ipcRenderer.send("show-context-menu", x, y, folderName);
+                ipcRenderer.send("show-context-menu", x, y, folderpath);
             });
         });
 
@@ -446,13 +447,15 @@ function createNewFolder(folderPath) {
     });
 }
 
-function nameNewFolder(element) {
+function nameNewFolder(folderpath) {
     const folder_name = document.createElement("input");
     let sent = false;
+    let folder;
     folder_name.type = "text";
     folder_name.classList = "folder";
-    if (element) {
-        const folder = document.getElementById(element)
+    if (folderpath) {
+        folder = document.querySelector(`[data-filepath="${folderpath}"]`);
+
         if (!folder.classList.contains("show")) {
             folder.classList.add("show")
         }
@@ -471,8 +474,14 @@ function nameNewFolder(element) {
                 sent = true
             }
             else {
-                const newFolderPath = path.join(notes_directory, element, newFolderName);
-                folder_name.remove();
+                let newFolderPath;
+                if (folder) {
+                    newFolderPath = path.join(folderpath, newFolderName);
+                }
+                else {
+                    newFolderPath = path.join(notes_directory, newFolderName);
+                    folder_name.remove();
+                }
                 sent = true;
                 createNewFolder(newFolderPath);
 
@@ -486,11 +495,17 @@ function nameNewFolder(element) {
             if (newFolderName.includes(".") || !newFolderName) {
                 console.log("Name can't contain '.' or be null");
                 folder_name.remove();
-                sent = true;
+                sent = true
             }
             else {
-                const newFolderPath = path.join(notes_directory, newFolderName);
-                folder_name.remove();
+                let newFolderPath;
+                if (folder) {
+                    newFolderPath = path.join(folderpath, newFolderName);
+                }
+                else {
+                    newFolderPath = path.join(notes_directory, newFolderName);
+                    folder_name.remove();
+                }
                 sent = true;
                 createNewFolder(newFolderPath);
             }
@@ -498,11 +513,11 @@ function nameNewFolder(element) {
     });
 
 }
+
 new_folder.addEventListener("click", () => {
     nameNewFolder();
 })
 
-ipcRenderer.on("add-folder", (e, element) => {
-    nameNewFolder(element);
+ipcRenderer.on("add-folder", (e, folderpath) => {
+    nameNewFolder(folderpath);
 });
-
