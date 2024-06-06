@@ -26,6 +26,7 @@ let isNoteOpened = false;
 let deleteMode = false;
 let notes_directory = config.defaultDirectory;
 let key = config.encryptionKey;
+let savedfilepath;
 
 const body = document.querySelector("body"),
     toggle = body.querySelector(".toggle"),
@@ -79,7 +80,7 @@ function decryptNote(key, encryptedText) {
         return decryptedText;
     } catch (error) {
         console.error('Error decrypting note:', error);
-        return null; // Return null or handle the error appropriately
+        return encryptedText // Return null or handle the error appropriately
     }
 }
 
@@ -107,14 +108,8 @@ markdown_toggle.addEventListener("click", () => {
 });
 
 clear_note.addEventListener("click", () => {
-    if (isNoteOpened) {
-        let confirm = window.confirm("¿Seguro que quieres limpiar la nota?\nNo se guardarán los cambios automaticamente.");
-        if (confirm) {
-            noteTitle.value = "";
-            noteBody.value = "";
-        }
-    }
-    else {
+    let confirm = window.confirm("¿Seguro que quieres limpiar la nota?\nNo se guardarán los cambios automaticamente.");
+    if (confirm) {
         noteTitle.value = "";
         noteBody.value = "";
     }
@@ -240,6 +235,7 @@ function displayDirectoryContents(directoryPath) {
 
 // Function to open a file or directory
 function openItem(filePath) {
+    savedfilepath = filePath;
     let element_name = filePath.split("/");
     element_name = element_name.slice(-1);
     let confirm = window.confirm('¿Seguro que quieres cargar la nota "' + element_name + '"?');
@@ -294,7 +290,8 @@ function SaveNote(encBody) {
     if (!isNoteOpened) {
         ipcRenderer.send('save-note', { title: title, body: note_body, defaultRootDirectory: notes_directory });
     } else {
-        const filePath = path.join(notes_directory, `${note_name}`);
+        const file = document.querySelector(`[data-filepath="${savedfilepath}"]`)
+        const filePath = path.join(file.dataset.filepath);
         fs.writeFile(filePath, `${title}---...---.-.-${note_body}`, (err) => {
             if (err) {
                 console.error('Error saving file:', err);
@@ -314,8 +311,9 @@ save.addEventListener("click", () => {
     SaveNote();
 });
 
-ipcRenderer.on("note-saved", () => {
+ipcRenderer.on("note-saved", (e, filepath) => {
     displayDirectoryContents(notes_directory);
+    savedfilepath = filepath;
     isNoteOpened = true;
 });
 

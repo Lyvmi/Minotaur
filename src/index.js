@@ -92,7 +92,7 @@ ipcMain.on('save-note', (event, noteData) => {
         } else {
           // File saved successfully
           console.log('File saved successfully:', result.filePath);
-          event.reply("note-saved");
+          event.reply("note-saved", result.filePath);
           event.reply('save-note-status', { success: true, message: 'File saved successfully' });
         }
       });
