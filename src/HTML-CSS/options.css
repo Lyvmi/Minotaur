@@ -19,8 +19,6 @@ body {
     margin: 0;
     overflow: hidden;
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
 }
 
 /* Container to hold the sidebar and content */
@@ -63,10 +61,12 @@ body {
 
 /* General body and Apariencia body styles */
 .general-body,
-.Apariencia-body {
-    position: absolute; /* Positioning content next to the fixed sidebar */
+.appearance-body {
+    position: fixed; /* Positioning content fixed within the viewport */
     top: 0;
-    bottom: 0;
+    left: 250px; /* Start content after the sidebar */
+    height: 100vh;
+    width: calc(100vw - 250px); /* Adjust width to account for sidebar */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -75,18 +75,25 @@ body {
 }
 
 /* Specific styles for the "Apariencia-body" section */
-.Apariencia-body {
+.appearance-body {
     flex-direction: column;
 }
 
-.Apariencia-body .palette-container {
+.appearance-body .title {
+    position: absolute;
+    top:50px;
+    left: 40px;
+}
+
+.appearance-body .palette-container {
     display: flex;
     flex-wrap: wrap;
+    min-width: 500px;
     gap: 20px; /* Add more space between palettes */
     justify-content: center;
 }
 
-.Apariencia-body .palette {
+.appearance-body .palette {
     position: relative; /* Positioning for border */
     width: 150px;
     height: 150px;
@@ -96,19 +103,26 @@ body {
     transition: border-color 0.3s; /* Transition for border color change */
 }
 
-.Apariencia-body .palette:hover {
+.appearance-body .palette:hover {
     border-color: var(--primary-color); /* Border color on hover */
+    cursor: pointer;
 }
 
-.Apariencia-body .palette img {
+.appearance-body .palette img {
     width: 100%;
     height: 100%;
     border-radius: 7px; /* Slight rounding for img */
 }
 
 /* Button styles */
-.Apariencia-body input[type="button"] {
+.button-container {
+    position: absolute;
+    bottom: 50px;
+    right: 30px;
     margin-top: 20px; /* Add space between palettes and buttons */
+}
+
+.appearance-body input[type="button"] {
     padding: 12px 25px; /* Adjust padding for better appearance */
     border: none;
     background-color: var(--primary-color);
@@ -120,8 +134,32 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
 }
 
-.Apariencia-body input[type="button"]:hover {
+.appearance-body input[type="button"]:hover {
     background-color: #007a7f;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Adjust box shadow on hover */
 }
 
+.bx-x {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 30px
+}
+
+.appearance-body hr {
+    position: absolute;
+    top: 100px;
+    width: calc(100vw - 250px - 80px);
+    border: none;
+    background-color: var(--folder-color);
+    height: 1px;
+    margin: 10px;
+  }
+  
+  .appearance-body .palette-title{
+    position: absolute;
+    top: 130px;
+    left: 40px;
+    font-size: medium;
+    color: black;
+  }
