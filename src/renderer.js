@@ -226,6 +226,9 @@ save.addEventListener("click", () => {
     }
 });
 
+ipcRenderer.on("note-saved", () => {
+    displayDirectoryContents(notes_directory);
+});
 
 // Save to cloud button click event listener
 

@@ -286,7 +286,7 @@ zero-md, .note-body {
   margin-right: 5px;
 }
 
-.folder-tree .fichero::before {
+.folder-tree .file::before {
   content: "📄 ";
   margin-right: 5px;
 }
