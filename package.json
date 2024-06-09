@@ -30,7 +30,9 @@
   "license": "MIT",
   "dependencies": {
     "@electron/remote": "^2.1.2",
+    "electron-oauth2": "^3.0.0",
     "electron-squirrel-startup": "^1.0.1",
+    "googleapis": "^140.0.0",
     "marked": "^12.0.2"
   }
 }

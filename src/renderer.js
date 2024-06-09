@@ -66,10 +66,12 @@ toggle.addEventListener("click", () => {
 });
 
 function encryptNote(key, text) {
-    const cipher = crypto.createCipher('aes-256-cbc', key);
-    let encryptedText = cipher.update(text, 'utf8', 'hex');
-    encryptedText += cipher.final('hex');
-    return encryptedText;
+    if (isNoteOpened) {
+        const cipher = crypto.createCipher('aes-256-cbc', key);
+        let encryptedText = cipher.update(text, 'utf8', 'hex');
+        encryptedText += cipher.final('hex');
+        return encryptedText;
+    }
 }
 
 function decryptNote(key, encryptedText) {
@@ -275,13 +277,12 @@ document.getElementById('reload').addEventListener('click', () => {
     displayDirectoryContents(notes_directory);
 });
 
-// Initial display: open root directory
+// Initial display
 displayDirectoryContents(notes_directory);
 
 // Save button click event listener
 
 function SaveNote(encBody) {
-    const note_name = noteName.innerHTML;
     const title = noteTitle.value;
     let note_body = noteBody.value;
     if (encBody) {
@@ -319,14 +320,21 @@ ipcRenderer.on("note-saved", (e, filepath) => {
 
 // Save to cloud button click event listener
 
-save_cloud.addEventListener("click", () => {
-    const title = noteTitle.value;
-    const note_body = noteBody.value;
-    console.log("Note saved!");
-    console.log(title);
-    console.log(note_body);
+save_cloud.addEventListener('click', async () => {
+    const response = await ipcRenderer.invoke('google-authenticate');
+    if (response) {
+        // Implement the upload logic here
+        const filePath = savedfilepath; // Use the saved file path
+        const mimeType = 'text/markdown'; // Adjust as needed
+        await ipcRenderer.send('upload-file', filePath, mimeType);
+    } else {
+        console.error('Authentication failed');
+    }
 });
 
+ipcRenderer.on('google-authenticated', () => {
+    console.log('Google authentication successful');
+});
 
 // Function to open a file dialog and read the file
 function openFileDialog() {

@@ -1,20 +1,19 @@
+// main.js
 const { app, BrowserWindow, dialog, ipcMain, nativeTheme, Menu } = require('electron');
 const path = require('node:path');
-const fs = require("fs");
+const fs = require('fs');
+const { getAuthUrl, authenticate, uploadFile } = require('./drive');
 
 let isDialogOpen = false;
 
-// Prevents an error on GPU - Not a harmful error
 app.commandLine.appendSwitch("disable-software-rasterizer");
 app.commandLine.appendSwitch('disable-gpu');
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
 const createWindow = () => {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
@@ -27,21 +26,12 @@ const createWindow = () => {
     }
   });
 
-  // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, './HTML-CSS/index.html'));
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
 };
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow();
 
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -49,23 +39,18 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-// Force light theme
 nativeTheme.themeSource = "light";
 
-// IPC event listener to handle saving note
 ipcMain.on('save-note', (event, noteData) => {
   const title = noteData.title;
   const body = noteData.body;
-  const defaultRootDirectory = noteData.defaultRootDirectory
+  const defaultRootDirectory = noteData.defaultRootDirectory;
 
   if (isDialogOpen) {
     return;
@@ -73,7 +58,6 @@ ipcMain.on('save-note', (event, noteData) => {
 
   isDialogOpen = true;
 
-  // Open a save dialog
   dialog.showSaveDialog({
     title: 'Save Note',
     defaultPath: path.join(defaultRootDirectory, `${title}.md`),
@@ -83,17 +67,22 @@ ipcMain.on('save-note', (event, noteData) => {
   }).then(result => {
     isDialogOpen = false;
     if (!result.canceled) {
-      // Write data to the selected file
-      fs.writeFile(result.filePath, `${title}---...---.-.-${body}`, (err) => {
+      const filePath = result.filePath;
+      fs.writeFile(filePath, `${title}---...---.-.-${body}`, async (err) => {
         if (err) {
-          // Handle error
           console.error('Error saving file:', err);
           event.reply('save-note-status', { success: false, message: 'Error saving file' });
         } else {
-          // File saved successfully
-          console.log('File saved successfully:', result.filePath);
-          event.reply("note-saved", result.filePath);
+          console.log('File saved successfully:', filePath);
+          event.reply("note-saved", filePath);
           event.reply('save-note-status', { success: true, message: 'File saved successfully' });
+
+          try {
+            await uploadFile(filePath, 'text/markdown');
+            console.log('File uploaded to Google Drive successfully');
+          } catch (uploadError) {
+            console.error('Error uploading file to Google Drive:', uploadError);
+          }
         }
       });
     }
@@ -104,7 +93,6 @@ ipcMain.on('save-note', (event, noteData) => {
   });
 });
 
-// IPC event listener to handle opening file dialog
 ipcMain.handle('show-open-file-dialog', async () => {
   if (isDialogOpen) {
     return { canceled: true };
@@ -126,7 +114,6 @@ ipcMain.handle('show-open-file-dialog', async () => {
   }
 });
 
-// IPC event listener to handle opening folder dialog
 ipcMain.handle('show-open-folder-dialog', async () => {
   if (isDialogOpen) {
     return { canceled: true };
@@ -149,7 +136,38 @@ ipcMain.handle('show-open-folder-dialog', async () => {
 
 ipcMain.on('show-context-menu', (event, x, y, element) => {
   const contextMenu = Menu.buildFromTemplate([
-      { label: 'Nueva carpeta', click: () => event.reply("add-folder", element) }
+    { label: 'Nueva carpeta', click: () => event.reply("add-folder", element) }
   ]);
   contextMenu.popup({ window: BrowserWindow.getFocusedWindow(), x, y });
+});
+
+ipcMain.handle('google-authenticate', async (event) => {
+  const authUrl = getAuthUrl();
+  const authWindow = new BrowserWindow({
+    width: 500,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+    }
+  });
+
+  authWindow.loadURL(authUrl);
+
+  authWindow.webContents.on('will-redirect', async (event, url) => {
+    if (url.startsWith(REDIRECT_URI)) {
+      const urlObj = new URL(url);
+      const code = urlObj.searchParams.get('code');
+      try {
+        await authenticate(code);
+        authWindow.close();
+        event.reply('google-authenticated', { success: true });
+      } catch (error) {
+        console.error('Error during authentication:', error);
+        authWindow.close();
+        event.reply('google-authenticated', { success: false, message: 'Authentication failed' });
+      }
+      return true;
+    }
+  });
 });
