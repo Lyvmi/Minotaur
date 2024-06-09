@@ -103,9 +103,15 @@ markdown_toggle.addEventListener("click", () => {
         md_text.innerHTML = text;
         noteBody.style.display = "none";
         zero_md.style.display = "block";
+        markdown_toggle.classList.remove("bxl-markdown");
+        markdown_toggle.classList.add("bx-edit-alt");
+        markdown_toggle.title = "Modo editar";
     } else {
         noteBody.style.display = "block";
         zero_md.style.display = "none";
+        markdown_toggle.classList.add("bxl-markdown");
+        markdown_toggle.classList.remove("bx-edit-alt");
+        markdown_toggle.title = "Modo markdown";
     }
 });
 
