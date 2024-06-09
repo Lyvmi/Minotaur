@@ -3,6 +3,7 @@ const { ipcRenderer } = require("electron");
 const fs = require('fs');
 const path = require('path');
 const os = require("os");
+let savedColorVariables = {};
 
 // Get references to the HTML elements
 const generalLink = document.querySelector('.general-link');
@@ -85,3 +86,38 @@ function openFolderDialog() {
         console.error('Error opening folder dialog:', err);
     });
 }
+
+// Function to update color variables when a palette is clicked
+function updateColorVariables(newColor) {
+    const colorVariables = ['--primary-color', '--secondary-color']; // Add more color variables as needed
+    colorVariables.forEach(variable => {
+        previousColorVariables[variable] = getComputedStyle(document.documentElement).getPropertyValue(variable);
+        document.documentElement.style.setProperty(variable, newColor);
+    });
+}
+
+// Event listener for palette clicks
+const palettes = document.querySelectorAll('.palette');
+palettes.forEach(palette => {
+    palette.addEventListener('click', () => {
+        const newColor = getComputedStyle(palette).getPropertyValue('background-color');
+        updateColorVariables(newColor);
+    });
+});
+
+// Event listener for the "Restaurar" button
+const restoreButton = document.getElementById('reset');
+restoreButton.addEventListener('click', () => {
+    Object.entries(previousColorVariables).forEach(([variable, value]) => {
+        document.documentElement.style.setProperty(variable, value);
+    });
+});
+
+// Event listener for the "Guardar" button
+const saveButton = document.getElementById('guardar');
+saveButton.addEventListener('click', () => {
+    // Save the color variables
+    // For example, you can save them to a configuration file or database
+    // Here, we're just logging the values for demonstration purposes
+    console.log("Color variables saved:", previousColorVariables);
+});

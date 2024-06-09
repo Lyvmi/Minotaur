@@ -1,0 +1,58 @@
+/* Theme Colors */
+:root {
+    --primary-bg-colour: #e4e9f7;
+    --secondary-bg-colour: #393E46;
+    --primary-colour: #00ADB5;
+    --secondary-colour: #222831; 
+    --font-dark-colour: #333333;
+    --font-light-colour: #CCCCCC;
+  }
+  
+  /* Body */
+  body {
+    background: var(--primary-bg-colour);
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background: var(--secondary-colour);
+  }
+  
+  /* Folder Container */
+  .folder-container {
+    background: var(--secondary-bg-colour);
+  }
+  
+  /* Note Container */
+  .note-container {
+    background: var(--primary-bg-colour);
+  }
+  
+  /* Text Colors */
+  .note-title,
+  .note-body {
+    color: var(--font-dark-colour);
+  }
+  
+  /* Light Font Color */
+  .note-container .tool-bar .note-name {
+    color: var(--font-light-colour);
+  }
+  
+  /* Button */
+  .button {
+    background-color: var(--primary-colour);
+    color: var(--font-dark-colour);
+  }
+  
+  .button:hover {
+    background-color: var(--secondary-colour);
+  }
+  
+  .sidebar li a:hover .icon {
+    color: var(--primary-color);
+}
+
+  .sidebar li .icon.active {
+    color: var(--primary-color);
+}
