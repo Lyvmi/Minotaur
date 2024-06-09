@@ -141,6 +141,13 @@ ipcMain.on('show-context-menu', (event, x, y, element) => {
   contextMenu.popup({ window: BrowserWindow.getFocusedWindow(), x, y });
 });
 
+ipcMain.on('show-context-menu2', (event, x, y, id, column) => {
+  const contextMenu = Menu.buildFromTemplate([
+    { label: "Eliminar", click: () => event.reply("delete-task", id, column) }
+  ]);
+  contextMenu.popup({ window: BrowserWindow.getFocusedWindow(), x, y });
+});
+
 ipcMain.handle('google-authenticate', async (event) => {
   const authUrl = getAuthUrl();
   const authWindow = new BrowserWindow({

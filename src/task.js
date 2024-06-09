@@ -31,6 +31,15 @@ function saveTasks() {
     fs.writeFileSync(filePath, JSON.stringify(tasks, null, 2));
 }
 
+function deleteTask(taskId, column) {
+    const index = tasks[column].findIndex(task => task.id === taskId);
+    if (index !== -1) {
+        tasks[column].splice(index, 1);
+        renderTasks();
+        saveTasks();
+    }
+}
+
 // Render tasks
 function renderTasks() {
     document.getElementById('todo-tasks').innerHTML = '';
@@ -52,8 +61,21 @@ function addTaskElement(task, containerId) {
     taskElement.draggable = true;
     taskElement.innerText = task.text;
     taskElement.dataset.id = task.id;
+    taskElement.addEventListener("contextmenu", (e) => {
+        let id = taskElement.dataset.id;
+        let column = taskContainer.id.split("-");
+        column = column[0];
+        e.preventDefault();
+        const x = e.clientX;
+        const y = e.clientY;
+        ipcRenderer.send("show-context-menu2", x, y, id, column);
+    });
     taskContainer.appendChild(taskElement);
 }
+
+ipcRenderer.on("delete-task", (e, id, column) =>{
+    deleteTask(id, column);
+});
 
 // Add drag and drop functionality
 function addDragAndDrop() {
@@ -137,13 +159,11 @@ function showTaskModal(column) {
 
     const addTaskBtn = document.getElementById('add-task-btn');
     const cancelTaskBtn = document.getElementById('cancel-task-btn');
-    const closeBtn = modal.querySelector('.delete');
 
     const closeModal = () => {
         modal.classList.remove('is-active');
         addTaskBtn.onclick = null;
         cancelTaskBtn.onclick = null;
-        closeBtn.onclick = null;
     };
 
     addTaskBtn.onclick = () => {
@@ -158,7 +178,6 @@ function showTaskModal(column) {
     };
 
     cancelTaskBtn.onclick = closeModal;
-    closeBtn.onclick = closeModal;
 }
 
 // Event listeners for adding tasks

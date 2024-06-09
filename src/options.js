@@ -30,7 +30,12 @@ appearanceLink.addEventListener('click', () => {
 
 // Event listener for the close button
 closeButton.addEventListener('click', () => {
-    window.history.back();
+    if (history.length >= 2){
+        window.history.back();
+    }
+    else{
+        window.location.href = "./index.html";
+    }
 });
 
 // Event listener for the general save button
@@ -56,6 +61,7 @@ generalSaveButton.addEventListener('click', () => {
             console.error('Error writing config file', err);
         } else {
             console.log('Config file saved successfully');
+            alert("Configuración guardada.");
         }
     });
 });

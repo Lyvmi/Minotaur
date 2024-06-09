@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Task Manager</title>
+    <title>Minotaur</title>
     <link rel="stylesheet" href="task.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -30,24 +30,30 @@
             <div class="task-container">
                 <div class="todo">
                     <div class="titles">
-                        <h3>Todo</h3>
-                        <div class="title-icons"><i class='bx bx-plus'></i></div>
+                        <h3>Por hacer</h3>
+                        <div class="title-icons">
+                            <i class='bx bx-plus' title="Añadir tarea"></i>
+                        </div>
                     </div>
                     <hr>
                     <div class="tasks" id="todo-tasks"></div>
                 </div>
                 <div class="doing">
                     <div class="titles">
-                        <h3>Doing</h3>
-                        <div class="title-icons"><i class='bx bx-plus'></i></div>
+                        <h3>Haciendo</h3>
+                        <div class="title-icons">
+                            <i class='bx bx-plus' title="Añadir tarea"></i>
+                        </div>
                     </div>
                     <hr>
                     <div class="tasks" id="doing-tasks"></div>
                 </div>
                 <div class="done">
                     <div class="titles">
-                        <h3>Done</h3>
-                        <div class="title-icons"><i class='bx bx-plus'></i></div>
+                        <h3>Hecho</h3>
+                        <div class="title-icons">
+                            <i class='bx bx-plus' title="Añadir tarea"></i>
+                        </div>
                     </div>
                     <hr>
                     <div class="tasks" id="done-tasks"></div>
@@ -61,15 +67,14 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Add Task</p>
-                <button class="delete" aria-label="close"></button>
+                <p class="modal-card-title">Añadir tarea</p>
             </header>
             <section class="modal-card-body">
-                <input class="input" type="text" id="task-input" placeholder="Task description">
+                <input class="input" type="text" id="task-input" placeholder="Nombre de la tarea">
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success" id="add-task-btn">Add Task</button>
-                <button class="button" id="cancel-task-btn">Cancel</button>
+                <button class="button is-success" id="add-task-btn">Añadir</button>
+                <button class="button" id="cancel-task-btn">Cancelar</button>
             </footer>
         </div>
     </div>

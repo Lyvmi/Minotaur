@@ -86,7 +86,6 @@ body {
 .task-container {
     display: flex;
     justify-content: space-around;
-    align-items: center;
 }
 
 .todo,
@@ -100,8 +99,7 @@ body {
 }
 
 .todo {
-    background-color: #FF4136;
-    color: #fff;
+    background-color: #ff4c42;
 }
 
 .doing {
@@ -172,4 +170,10 @@ body {
 .tasks.drag-over {
     background-color: rgba(0, 0, 0, 0.1);
     border: 2px dashed var(--primary-color);
+}
+
+#todo-tasks.tasks,
+#doing-tasks.tasks, 
+#done-tasks.tasks{
+    min-height: 100px;
 }
