@@ -72,6 +72,9 @@ function encryptNote(key, text) {
         encryptedText += cipher.final('hex');
         return encryptedText;
     }
+    else{
+        return "";
+    }
 }
 
 function decryptNote(key, encryptedText) {
@@ -81,8 +84,7 @@ function decryptNote(key, encryptedText) {
         decryptedText += decipher.final('utf8');
         return decryptedText;
     } catch (error) {
-        console.error('Error decrypting note:', error);
-        return encryptedText // Return null or handle the error appropriately
+        return "" // Return null or handle the error appropriately
     }
 }
 

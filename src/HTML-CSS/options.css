@@ -112,13 +112,28 @@ body {
 .general-content {
     display: flex;
     flex-direction: column;
-    margin-top: 150px;
-    gap: 20px;
+    margin-top: 80px;
 }
 
-.general-content .section {
-    display: flex;
-    flex-direction: column;
+.general-section{
+    margin-left: 15px;
+    margin-top: 48px;
+}
+
+.general-section button{
+    padding: 6px 10px;
+    /* Adjust padding for better appearance */
+    border: none;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    /* Transition for background color and box shadow */
+    border-radius: 10px;
+    font-size: 14px;
+    /* Adjust font size */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Add box shadow for depth */
 }
 
 .general-content .section-title {

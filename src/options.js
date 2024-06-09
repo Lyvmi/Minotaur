@@ -55,15 +55,19 @@ generalSaveButton.addEventListener('click', () => {
     if (!fs.existsSync(configDir)) {
         fs.mkdirSync(configDir, { recursive: true });
     }
-
-    fs.writeFile(configPath, JSON.stringify(configData, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing config file', err);
-        } else {
-            console.log('Config file saved successfully');
-            alert("Configuración guardada.");
-        }
-    });
+    if (defaultDirectory){
+        fs.writeFile(configPath, JSON.stringify(configData, null, 2), (err) => {
+            if (err) {
+                console.error('Error writing config file', err);
+            } else {
+                console.log('Config file saved successfully');
+                alert("Configuración guardada.");
+            }
+        });
+    }
+    else{
+        alert("Por favor, selecciona un directorio");
+    }
 });
 
 
