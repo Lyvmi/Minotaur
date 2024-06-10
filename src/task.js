@@ -34,7 +34,6 @@ function loadPalette() {
     }
 }
 
-// Function to update CSS variables based on the selected palette
 function updateCSSVariables(paletteId) {
     const palette = savedColorVariables[paletteId];
     if (palette) {
@@ -45,7 +44,6 @@ function updateCSSVariables(paletteId) {
     }
 }
 
-// Apply the selected palette on page load
 document.addEventListener("DOMContentLoaded", () => {
     updateCSSVariables(selectedPalette);
 });
@@ -56,7 +54,6 @@ let tasks = {
     done: []
 };
 
-// Load tasks from JSON
 function loadTasks() {
     const homeDirectory = os.homedir();
     const tasksDir = path.join(homeDirectory, '.minotaur');
@@ -68,7 +65,6 @@ function loadTasks() {
     renderTasks();
 }
 
-// Save tasks to JSON
 function saveTasks() {
     const homeDirectory = os.homedir();
     const tasksDir = path.join(homeDirectory, '.minotaur');
@@ -85,7 +81,6 @@ function deleteTask(taskId, column) {
     }
 }
 
-// Render tasks
 function renderTasks() {
     document.getElementById('todo-tasks').innerHTML = '';
     document.getElementById('doing-tasks').innerHTML = '';
@@ -98,7 +93,6 @@ function renderTasks() {
     addDragAndDrop();
 }
 
-// Add task element
 function addTaskElement(task, containerId) {
     const taskContainer = document.getElementById(containerId);
     const taskElement = document.createElement('div');
@@ -118,11 +112,10 @@ function addTaskElement(task, containerId) {
     taskContainer.appendChild(taskElement);
 }
 
-ipcRenderer.on("delete-task", (e, id, column) =>{
+ipcRenderer.on("delete-task", (e, id, column) => {
     deleteTask(id, column);
 });
 
-// Add drag and drop functionality
 function addDragAndDrop() {
     const tasks = document.querySelectorAll('.task');
     const columns = document.querySelectorAll('.tasks');
@@ -152,7 +145,6 @@ function addDragAndDrop() {
     });
 }
 
-// Get the element after which the task should be inserted
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.task:not(.dragging)')];
 
@@ -167,7 +159,6 @@ function getDragAfterElement(container, y) {
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
-// Update tasks array based on the DOM
 function updateTasks() {
     tasks.todo = [];
     tasks.doing = [];
@@ -188,12 +179,10 @@ function updateTasks() {
     saveTasks();
 }
 
-// Add new task
 function addTask(column) {
     showTaskModal(column);
 }
 
-// Show task modal
 function showTaskModal(column) {
     const modal = document.getElementById('task-modal');
     modal.classList.add('is-active');
@@ -221,14 +210,11 @@ function showTaskModal(column) {
             closeModal();
         }
     };
-
     cancelTaskBtn.onclick = closeModal;
 }
 
-// Event listeners for adding tasks
 document.querySelector('.todo .bx-plus').addEventListener('click', () => addTask('todo'));
 document.querySelector('.doing .bx-plus').addEventListener('click', () => addTask('doing'));
 document.querySelector('.done .bx-plus').addEventListener('click', () => addTask('done'));
 
-// Initial load
 loadTasks();

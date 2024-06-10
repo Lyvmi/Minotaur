@@ -33,7 +33,6 @@ function loadPalette() {
     }
 }
 
-// Function to update CSS variables based on the selected palette
 function updateCSSVariables(paletteId) {
     const palette = savedColorVariables[paletteId];
     if (palette) {
@@ -44,7 +43,6 @@ function updateCSSVariables(paletteId) {
     }
 }
 
-// Apply the selected palette on page load
 document.addEventListener("DOMContentLoaded", () => {
     updateCSSVariables(selectedPalette);
 });

@@ -104,7 +104,7 @@ function encryptNote(key, text) {
         encryptedText += cipher.final('hex');
         return encryptedText;
     }
-    else{
+    else {
         return "";
     }
 }
@@ -116,7 +116,7 @@ function decryptNote(key, encryptedText) {
         decryptedText += decipher.final('utf8');
         return decryptedText;
     } catch (error) {
-        return "" // Return null or handle the error appropriately
+        return ""
     }
 }
 
@@ -176,17 +176,16 @@ new_note.addEventListener("click", () => {
 
 })
 
-// Function to generate directory tree HTML
 function buildDirectoryTreeHTML(directoryPath, callback) {
     fs.readdir(directoryPath, (err, list) => {
         if (err) return callback(err);;
         list.sort((a, b) => a.localeCompare(b));
-        const ulElement = document.createElement('ul'); // Create the root <ul> element
+        const ulElement = document.createElement('ul');
 
         let pending = list.length;
 
         if (!pending) {
-            return callback(null, ulElement);  // Return an empty list if the directory is empty
+            return callback(null, ulElement);
         }
         list.forEach(file => {
             const filePath = path.join(directoryPath, file);
@@ -195,8 +194,8 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                 if (stat && stat.isDirectory()) {
                     buildDirectoryTreeHTML(filePath, (err, childUlElement) => {
                         if (err) return callback(err);
-                        const liElement = document.createElement('li'); // Create <li> for folder
-                        const folderElement = document.createElement('div'); // Create <span> for folder name
+                        const liElement = document.createElement('li');
+                        const folderElement = document.createElement('div');
                         folderElement.textContent = file;
                         folderElement.dataset.filepath = filePath
                         folderElement.classList.add('folder');
@@ -210,7 +209,6 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                         }
                     });
                 } else {
-                    // Create the anchor element for files
                     const liElement = document.createElement('li');
                     const aElement = document.createElement('a');
                     aElement.textContent = file;
@@ -219,8 +217,8 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                     aElement.dataset.filepath = filePath;
                     aElement.addEventListener('dblclick', (event) => {
                         if (!deleteMode) {
-                            event.preventDefault(); // Prevent default anchor behavior
-                            event.stopPropagation(); // Stop event propagation
+                            event.preventDefault();
+                            event.stopPropagation();
                             openItem(filePath, true);
                         }
                     });
@@ -236,7 +234,6 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
     });
 }
 
-// Function to display directory contents
 function displayDirectoryContents(directoryPath) {
     buildDirectoryTreeHTML(directoryPath, (err, ulElement) => {
         if (err) {
@@ -244,17 +241,16 @@ function displayDirectoryContents(directoryPath) {
             return;
         }
 
-        folder_tree.innerHTML = ''; // Clear previous contents
-        folder_tree.appendChild(ulElement); // Append the generated HTML
+        folder_tree.innerHTML = '';
+        folder_tree.appendChild(ulElement);
 
-        // Add event listeners to new folder elements
         const folders = folder_tree.querySelectorAll('.folder');
         folders.forEach(folder => {
             folder.addEventListener('click', (event) => {
                 event.stopPropagation();
                 if (!deleteMode) {
                     folder.classList.toggle("show");
-                    const childUl = folder.nextElementSibling; // Get the next sibling, which should be the <ul>
+                    const childUl = folder.nextElementSibling;
                     if (childUl) {
                         childUl.classList.toggle('show');
                     }
@@ -270,12 +266,11 @@ function displayDirectoryContents(directoryPath) {
             });
         });
 
-        // Update current path display
         currentPathDisplay.textContent = directoryPath;
     });
 }
 
-// Function to open a file or directory
+
 function openItem(filePath) {
     savedfilepath = filePath;
     let element_name = filePath.split("/");
@@ -288,17 +283,14 @@ function openItem(filePath) {
                 return;
             }
 
-            // Extract file name from file path
             const fileName = path.basename(filePath);
 
-            // Split the data into title and body if it's a valid note format
             const noteContent = data.split("---...---.-.-");
             if (noteContent.length !== 2) {
                 console.error('Invalid note format:', filePath);
                 return;
             }
 
-            // Update the UI with the file name and note content
             noteName.innerHTML = fileName;
             noteTitle.value = noteContent[0];
             noteBody.value = noteContent[1];
@@ -306,21 +298,18 @@ function openItem(filePath) {
             savedBody = noteContent[1];
             isNoteOpened = true;
 
-            // Display file name and contents
-
         });
     }
 }
 
-// Event listener for opening the root directory
 document.getElementById('reload').addEventListener('click', () => {
     displayDirectoryContents(notes_directory);
 });
 
-// Initial display
+
 displayDirectoryContents(notes_directory);
 
-// Save button click event listener
+
 
 function SaveNote(encBody) {
     const title = noteTitle.value;
@@ -358,14 +347,13 @@ ipcRenderer.on("note-saved", (e, filepath) => {
     isNoteOpened = true;
 });
 
-// Save to cloud button click event listener
+
 
 save_cloud.addEventListener('click', async () => {
     const response = await ipcRenderer.invoke('google-authenticate');
     if (response) {
-        // Implement the upload logic here
-        const filePath = savedfilepath; // Use the saved file path
-        const mimeType = 'text/markdown'; // Adjust as needed
+        const filePath = savedfilepath;
+        const mimeType = 'text/markdown';
         await ipcRenderer.send('upload-file', filePath, mimeType);
     } else {
         console.error('Authentication failed');
@@ -376,7 +364,6 @@ ipcRenderer.on('google-authenticated', () => {
     console.log('Google authentication successful');
 });
 
-// Function to open a file dialog and read the file
 function openFileDialog() {
     ipcRenderer.invoke('show-open-file-dialog').then(result => {
         if (!result.canceled) {
@@ -387,7 +374,6 @@ function openFileDialog() {
     });
 }
 
-// Function to open a folder dialog and set it as the new root directory
 function openFolderDialog() {
     ipcRenderer.invoke('show-open-folder-dialog').then(result => {
         if (!result.canceled) {
@@ -399,7 +385,6 @@ function openFolderDialog() {
     });
 }
 
-// Event listeners for the file and folder dialog buttons
 open_file.addEventListener('click', openFileDialog);
 open_folder.addEventListener('click', openFolderDialog);
 
@@ -434,7 +419,6 @@ function deleteItem(filePath) {
                     }
                     console.log('Directory deleted successfully:', filePath);
                     displayDirectoryContents(notes_directory);
-                    // Optionally, update UI or perform any additional actions
                 });
             }
         } else {
@@ -447,7 +431,6 @@ function deleteItem(filePath) {
                     }
                     console.log('File deleted successfully:', filePath);
                     displayDirectoryContents(notes_directory);
-                    // Optionally, update UI or perform any additional actions
                 });
             }
         }
@@ -455,11 +438,11 @@ function deleteItem(filePath) {
 }
 
 deleteButton.addEventListener('click', () => {
-    deleteMode = !deleteMode; // Toggle delete mode
+    deleteMode = !deleteMode;
     if (deleteMode) {
-        deleteButton.classList.add('active'); // Add a visual indicator for delete mode
+        deleteButton.classList.add('active');
     } else {
-        deleteButton.classList.remove('active'); // Remove visual indicator
+        deleteButton.classList.remove('active');
     }
 });
 
@@ -468,10 +451,10 @@ folder_tree.addEventListener('dblclick', (event) => {
         const target = event.target;
         if (target.classList.contains('folder')) {
             const folderPath = target.dataset.filepath;
-            deleteItem(folderPath); // Delete folder
+            deleteItem(folderPath);
         } else if (target.classList.contains("file")) {
             const filePath = target.dataset.filepath;
-            deleteItem(filePath); // Delete file
+            deleteItem(filePath);
         }
     }
 });
@@ -486,7 +469,7 @@ function createNewFolder(folderPath) {
 
         } else {
             console.log('Folder created successfully:', folderPath);
-            displayDirectoryContents(notes_directory); // Refresh the directory view
+            displayDirectoryContents(notes_directory);
         }
     });
 }

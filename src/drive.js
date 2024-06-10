@@ -1,4 +1,3 @@
-// drive.js
 const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
@@ -12,7 +11,6 @@ const oauth2Client = new google.auth.OAuth2(
     REDIRECT_URI
 );
 
-// Scopes for Google Drive
 const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 
 function getAuthUrl() {

@@ -32,7 +32,6 @@ function loadPallete() {
     }
 }
 
-// Function to update CSS variables based on the selected palette
 function updateCSSVariables(paletteId) {
     const palette = savedColorVariables[paletteId];
     if (palette) {
@@ -43,12 +42,10 @@ function updateCSSVariables(paletteId) {
     }
 }
 
-// Apply the selected palette on page load
 document.addEventListener("DOMContentLoaded", () => {
     updateCSSVariables(selectedPalette);
 });
 
-// Get references to the HTML elements
 const generalLink = document.querySelector('.general-link');
 const appearanceLink = document.querySelector('.appearance-link');
 const generalBody = document.querySelector('.general-body');
@@ -57,7 +54,6 @@ const closeButton = document.querySelector('.bx-x');
 const generalSaveButton = document.querySelector('#general-save');
 const browse = document.querySelector(".browse");
 
-// Event listener for the sidebar links
 generalLink.addEventListener('click', () => {
     generalBody.style.display = 'flex';
     appearanceBody.style.display = 'none';
@@ -72,17 +68,15 @@ appearanceLink.addEventListener('click', () => {
     appearanceLink.classList.add('active');
 });
 
-// Event listener for the close button
 closeButton.addEventListener('click', () => {
-    if (history.length >= 2){
+    if (history.length >= 2) {
         window.history.back();
     }
-    else{
+    else {
         window.location.href = "./index.html";
     }
 });
 
-// Event listener for the general save button
 generalSaveButton.addEventListener('click', () => {
     const defaultDirectory = document.querySelector('#default-directory').value;
     const encryptionKey = document.querySelector('#encryption-key').value;
@@ -96,11 +90,10 @@ generalSaveButton.addEventListener('click', () => {
 
     const configPath = path.join(configDir, 'config.json');
 
-    // Ensure the directory exists
     if (!fs.existsSync(configDir)) {
         fs.mkdirSync(configDir, { recursive: true });
     }
-    if (defaultDirectory){
+    if (defaultDirectory) {
         fs.writeFile(configPath, JSON.stringify(configData, null, 2), (err) => {
             if (err) {
                 console.error('Error writing config file', err);
@@ -110,7 +103,7 @@ generalSaveButton.addEventListener('click', () => {
             }
         });
     }
-    else{
+    else {
         alert("Por favor, selecciona un directorio");
     }
 });
@@ -130,7 +123,6 @@ function openFolderDialog() {
     });
 }
 
-// Event listener for palette clicks
 const palettes = document.querySelectorAll('.palette img');
 palettes.forEach(palette => {
     palette.addEventListener('click', () => {
@@ -139,14 +131,12 @@ palettes.forEach(palette => {
     });
 });
 
-// Event listener for the "Restaurar" button
 const restoreButton = document.getElementById('reset');
 restoreButton.addEventListener('click', () => {
     const paletteId = loadConfig().palette;
     updateCSSVariables(paletteId);
 });
 
-// Event listener for the "Guardar" button
 const saveButton = document.getElementById('appearance-save');
 saveButton.addEventListener('click', () => {
     const configData = loadConfig();

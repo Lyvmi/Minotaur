@@ -1,10 +1,10 @@
-/* Theme Colors */
-/* Body */
+/* Colores del tema */
+/* Cuerpo */
 body {
   background: var(--primary-bg-colour);
 }
 
-/* Sidebar */
+/* Barra lateral */
 .sidebar {
   background: var(--secondary-colour);
 }
@@ -21,8 +21,7 @@ body {
   color: var(--primary-colour);
 }
 
-
-/* Folder Container */
+/* Contenedor de carpetas */
 .folder-container {
   background: var(--secondary-bg-colour);
   color: var(--font-light-colour);
@@ -32,25 +31,24 @@ body {
   color: var(--font-light-colour);
 }
 
-/* Note Container */
+/* Contenedor de notas */
 .note-container {
   background: var(--primary-bg-colour);
 }
 
-/* Text Colors */
+/* Colores de texto */
 .note-title,
 .note-body {
   color: var(--font-dark-colour);
   background: var(--primary-bg-colour);
 }
 
-
-/* Light Font Color */
+/* Color de fuente claro */
 .note-container .tool-bar .note-name {
   color: var(--font-light-colour);
 }
 
-/* Button */
+/* Botón */
 .button {
   background-color: var(--primary-colour);
   color: var(--font-light-colour);
@@ -110,4 +108,8 @@ span.options {
 button.browse:hover {
   background-color: var(--primary-colour);
   color: var(--font-light-colour);
+}
+
+zero-md template style body {
+  background-color: var(--primary-bg-colour);
 }

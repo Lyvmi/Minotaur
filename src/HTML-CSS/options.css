@@ -1,9 +1,9 @@
-/* Scrollbar */
+/* Oculta la barra de desplazamiento */
 body::-webkit-scrollbar {
     width: 0px;
 }
 
-/* Body */
+/* Ajusta el cuerpo para ocupar toda la altura de la ventana y elimina márgenes */
 body {
     height: 100vh;
     margin: 0;
@@ -11,16 +11,16 @@ body {
     display: flex;
 }
 
-/* Container to hold the sidebar and content */
+/* Contenedor para la barra lateral y el contenido */
 .container {
     display: flex;
     height: 100vh;
 }
 
-/* Sidebar styles */
+/* Estilos de la barra lateral */
 .sidebar {
     position: fixed;
-    /* Fixed position to the left of the screen */
+    /* Posición fija a la izquierda de la pantalla */
     top: 0;
     left: 0;
     height: 100vh;
@@ -41,30 +41,30 @@ body {
     font-size: 18px;
     margin: 10px 0;
     transition: color 0.3s, background-color 0.3s;
-    /* Added background-color transition */
+    /* Transición añadida para el color de fondo */
 }
 
-/* General body and Apariencia body styles */
+/* Estilos generales del cuerpo y del cuerpo de apariencia */
 .general-body,
 .appearance-body {
     position: fixed;
-    /* Positioning content fixed within the viewport */
+    /* Posición fija dentro de la ventana */
     top: 0;
     left: 250px;
-    /* Start content after the sidebar */
+    /* Comienza el contenido después de la barra lateral */
     height: 100vh;
     width: calc(100vw - 250px);
-    /* Adjust width to account for sidebar */
+    /* Ajusta el ancho para considerar la barra lateral */
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* Align content to the top */
+    /* Alinea el contenido en la parte superior */
     align-items: flex-start;
-    /* Align content to the left */
+    /* Alinea el contenido a la izquierda */
 }
 
-/* Specific styles for the titles */
+/* Estilos específicos para los títulos */
 .general-body .title,
 .appearance-body .title {
     position: absolute;
@@ -72,7 +72,7 @@ body {
     left: 40px;
 }
 
-/* Horizontal rules */
+/* Líneas horizontales */
 .general-body hr,
 .appearance-body hr {
     position: absolute;
@@ -83,30 +83,30 @@ body {
     margin: 10px;
 }
 
-/* General content styles */
+/* Estilos generales del contenido */
 .general-content {
     display: flex;
     flex-direction: column;
     margin-top: 80px;
 }
 
-.general-section{
+.general-section {
     margin-left: 15px;
     margin-top: 48px;
 }
 
-.general-section button{
+.general-section button {
     padding: 6px 10px;
-    /* Adjust padding for better appearance */
+    /* Ajusta el relleno para una mejor apariencia */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
-    /* Transition for background color and box shadow */
+    /* Transición para el color de fondo y la sombra */
     border-radius: 10px;
     font-size: 14px;
-    /* Adjust font size */
+    /* Ajusta el tamaño de la fuente */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    /* Add box shadow for depth */
+    /* Añade sombra para dar profundidad */
 }
 
 .general-content .section-title {
@@ -115,7 +115,7 @@ body {
     margin-bottom: 10px;
 }
 
-/* Specific styles for the "Apariencia-body" section */
+/* Estilos específicos para la sección "appearance-body" */
 .appearance-body {
     flex-direction: column;
 }
@@ -133,22 +133,22 @@ body {
     flex-wrap: wrap;
     min-width: 500px;
     gap: 20px;
-    /* Add more space between palettes */
+    /* Añade más espacio entre las paletas */
     justify-content: center;
     margin-top: 150px;
 }
 
 .appearance-body .palette {
     position: relative;
-    /* Positioning for border */
+    /* Posicionamiento para el borde */
     width: 150px;
     height: 150px;
     border: 3px solid white;
-    /* Always visible white border */
+    /* Borde blanco siempre visible */
     border-radius: 10px;
     overflow: hidden;
     transition: border-color 0.3s;
-    /* Transition for border color change */
+    /* Transición para el cambio de color del borde */
 }
 
 .appearance-body .palette:hover {
@@ -159,40 +159,40 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 7px;
-    /* Slight rounding for img */
+    /* Redondeo ligero para la imagen */
 }
 
-/* Button styles */
+/* Estilos de los botones */
 .button-container {
     position: absolute;
     bottom: 50px;
     right: 30px;
     margin-top: 20px;
-    /* Add space between palettes and buttons */
+    /* Añade espacio entre las paletas y los botones */
 }
 
 .appearance-body input[type="button"],
 .general-body input[type="button"] {
     padding: 12px 25px;
-    /* Adjust padding for better appearance */
+    /* Ajusta el relleno para una mejor apariencia */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
-    /* Transition for background color and box shadow */
+    /* Transición para el color de fondo y la sombra */
     border-radius: 10px;
     font-size: 16px;
-    /* Adjust font size */
+    /* Ajusta el tamaño de la fuente */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    /* Add box shadow for depth */
+    /* Añade sombra para dar profundidad */
 }
 
 .appearance-body input[type="button"]:hover,
 .general-body input[type="button"]:hover {
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-    /* Adjust box shadow on hover */
+    /* Ajusta la sombra al pasar el cursor */
 }
 
-/* Close button */
+/* Botón de cerrar */
 .bx-x {
     position: fixed;
     top: 10px;

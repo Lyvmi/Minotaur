@@ -1,4 +1,3 @@
-// main.js
 const { app, BrowserWindow, dialog, ipcMain, nativeTheme, Menu } = require('electron');
 const path = require('node:path');
 const fs = require('fs');

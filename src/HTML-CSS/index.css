@@ -1,9 +1,9 @@
-/* Scrollbar */
+/* Oculta la barra de desplazamiento */
 body::-webkit-scrollbar {
   width: 0px;
 }
 
-/* Body */
+/* Ajusta el cuerpo para ocupar toda la altura de la ventana y elimina márgenes */
 body {
   height: 100vh;
   margin: 0;
@@ -11,7 +11,7 @@ body {
   display: flex;
 }
 
-/* Sidebar */
+/* Barra lateral fija */
 .sidebar {
   position: fixed;
   top: 0;
@@ -22,6 +22,7 @@ body {
   transition: width 0.3s;
 }
 
+/* Botón de alternar la barra lateral */
 .sidebar .toggle {
   position: absolute;
   bottom: 20px;
@@ -33,6 +34,7 @@ body {
   cursor: pointer;
 }
 
+/* Barra de menú en la barra lateral */
 .sidebar .menu-bar {
   height: calc(100% - 150px);
   display: flex;
@@ -40,6 +42,7 @@ body {
   justify-content: space-between;
 }
 
+/* Elementos de la lista en la barra lateral */
 .sidebar li {
   height: 50px;
   margin-top: 10px;
@@ -48,6 +51,7 @@ body {
   align-items: center;
 }
 
+/* Iconos en los elementos de la lista de la barra lateral */
 .sidebar li .icon {
   min-width: 50px;
   font-size: 24px;
@@ -56,6 +60,7 @@ body {
   justify-content: center;
 }
 
+/* Enlaces en los elementos de la lista de la barra lateral */
 .sidebar li a {
   height: 100%;
   width: 100%;
@@ -65,7 +70,7 @@ body {
   border-radius: 6px;
 }
 
-/* Folder Container */
+/* Contenedor de carpetas */
 .folder-container {
   position: fixed;
   top: 0;
@@ -79,11 +84,13 @@ body {
   box-sizing: border-box;
 }
 
+/* Contenedor de carpetas cerrado */
 .folder-container.close {
   opacity: 0;
   left: -250px;
 }
 
+/* Botones de las carpetas */
 .folder-buttons {
   font-size: 24px;
   cursor: pointer;
@@ -97,6 +104,7 @@ body {
   transition: 0.3s;
 }
 
+/* Opciones de las carpetas */
 .folder-options {
   font-size: 24px;
   cursor: pointer;
@@ -110,6 +118,7 @@ body {
   transition: 0.3s;
 }
 
+/* Menú de las carpetas */
 .folder-menu {
   display: flex;
   flex-direction: column;
@@ -117,7 +126,7 @@ body {
   width: 100%;
 }
 
-/* Current Path Display */
+/* Mostrar la ruta actual */
 #current-path {
   margin-top: 20px;
   font-size: 14px;
@@ -128,7 +137,7 @@ body {
   font-weight: bold;
 }
 
-/* Note Container */
+/* Contenedor de notas */
 .note-container {
   position: fixed;
   top: 0;
@@ -145,11 +154,13 @@ body {
   margin: 10px;
 }
 
+/* Contenedor de notas cerrado */
 .note-container.close {
   left: 50px;
   width: calc(100vw - 50px);
 }
 
+/* Editor de notas */
 .note-editor {
   display: flex;
   flex-direction: column;
@@ -158,6 +169,7 @@ body {
   padding: 10px;
 }
 
+/* Título de la nota */
 .note-title {
   font-size: 24px;
   padding: 10px;
@@ -167,6 +179,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Cuerpo de la nota */
 .note-body {
   flex-grow: 1;
   font-size: 16px;
@@ -177,6 +190,7 @@ body {
   resize: none;
 }
 
+/* Barra de herramientas */
 .tool-bar {
   display: flex;
   justify-content: space-between;
@@ -186,21 +200,25 @@ body {
   padding: 10px;
 }
 
+/* Nombre de la nota en la barra de herramientas */
 .tool-bar .note-name {
   flex-grow: 1;
   font-weight: bold;
   font-size: small;
 }
 
+/* Indicador de nota no guardada */
 .note-name.notSaved::before {
   content: "• ";
 }
 
+/* Iconos en la barra de herramientas */
 .tool-bar i {
   margin-left: 10px;
   cursor: pointer;
 }
 
+/* Estilo compartido para el título de la nota, cuerpo de la nota y zero-md */
 .note-title,
 .note-body,
 zero-md {
@@ -214,17 +232,19 @@ zero-md {
   overflow-x: hidden;
 }
 
+/* Estilo específico para el título de la nota */
 .note-title {
   font-weight: bold;
-  min-height: 48px
+  min-height: 48px;
 }
 
+/* Margen inferior para zero-md y el cuerpo de la nota */
 zero-md,
 .note-body {
   margin-bottom: 35px;
 }
 
-/* Opening and Closing Folder */
+/* Abrir y cerrar carpetas */
 .folder-tree ul {
   list-style-type: none;
   margin: 0;
@@ -238,16 +258,19 @@ zero-md,
   cursor: pointer;
 }
 
+/* Icono de carpeta */
 .folder-tree .folder::before {
   content: "›";
   margin-right: 5px;
 }
 
+/* Icono de archivo */
 .folder-tree .file::before {
   content: "📄 ";
   margin-right: 5px;
 }
 
+/* Sublistas de carpetas */
 .folder-tree ul ul {
   display: none;
   padding-left: 3px;
@@ -255,14 +278,17 @@ zero-md,
   border-left: 1px solid #ccc;
 }
 
+/* Sublistas de carpetas abiertas */
 .folder-tree ul ul.show {
   display: block;
 }
 
+/* Carpeta abierta */
 .folder-tree .folder.show::before {
   content: "⌄";
 }
 
-.folder-tree .folder{
+/* Ancho completo para la carpeta */
+.folder-tree .folder {
   width: 100%;
 }
