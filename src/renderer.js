@@ -7,8 +7,8 @@ const crypto = require("crypto");
 const homeDirectory = os.homedir();
 const configDir = path.join(homeDirectory, '.minotaur');
 
-let savedColorVariables = loadPalette();
 let selectedPalette = loadConfig();
+let savedColorVariables = loadPalette();
 selectedPalette = selectedPalette ? selectedPalette.palette : "1";
 
 function loadConfig() {
@@ -19,6 +19,7 @@ function loadConfig() {
         return config;
     } catch (err) {
         console.error('Error reading config file:', err);
+        window.location.href = "options.html";
         return null;
     }
 }

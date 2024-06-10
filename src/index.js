@@ -18,6 +18,7 @@ const createWindow = () => {
     width: 1024,
     height: 768,
     autoHideMenuBar: true,
+    icon: path.join(__dirname, './minotaur-logo.png'),
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true,

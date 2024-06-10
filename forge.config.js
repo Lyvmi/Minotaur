@@ -3,13 +3,17 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
 module.exports = {
   packagerConfig: {
+    icon: '/home/lyvmi/Minotaur/src/minotaur-logo.png',
     asar: true,
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        iconUrl: '/home/lyvmi/Minotaur/src/minotaur-logo.png',
+        setupIcon: '/home/lyvmi/Minotaur/src/minotaur-logo.png'
+      },
     },
     {
       name: '@electron-forge/maker-zip',
@@ -17,7 +21,11 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-deb',
-      config: {},
+        config: {
+          options: {
+            icon: '/home/lyvmi/Minotaur/src/minotaur-logo.png'
+          }
+      }
     },
     {
       name: '@electron-forge/maker-rpm',
