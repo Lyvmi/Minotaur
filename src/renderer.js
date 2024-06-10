@@ -4,9 +4,14 @@ const path = require("path");
 const os = require("os");
 const crypto = require("crypto");
 
+const homeDirectory = os.homedir();
+const configDir = path.join(homeDirectory, '.minotaur');
+
+let savedColorVariables = loadPalette();
+let selectedPalette = loadConfig();
+selectedPalette = selectedPalette ? selectedPalette.palette : "1";
+
 function loadConfig() {
-    const homeDirectory = os.homedir();
-    const configDir = path.join(homeDirectory, '.minotaur');
     const configPath = path.join(configDir, 'config.json');
     try {
         const data = fs.readFileSync(configPath, 'utf8');
@@ -14,9 +19,35 @@ function loadConfig() {
         return config;
     } catch (err) {
         console.error('Error reading config file:', err);
-        window.location.href = "options.html";
+        return null;
     }
 }
+
+function loadPalette() {
+    const configPath = path.join(__dirname, "..", "palettes.json");
+    try {
+        const data = fs.readFileSync(configPath, 'utf8');
+        const config = JSON.parse(data);
+        return config;
+    } catch (err) {
+        console.error('Error reading palettes file:', err);
+        return null;
+    }
+}
+
+function updateCSSVariables(paletteId) {
+    const palette = savedColorVariables[paletteId];
+    if (palette) {
+        Object.keys(palette).forEach(variable => {
+            document.documentElement.style.setProperty(variable, palette[variable]);
+        });
+        selectedPalette = paletteId;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateCSSVariables(selectedPalette);
+});
 
 const config = loadConfig();
 

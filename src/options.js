@@ -1,9 +1,52 @@
-// options.js
 const { ipcRenderer } = require("electron");
 const fs = require('fs');
 const path = require('path');
 const os = require("os");
-let savedColorVariables = {};
+
+const homeDirectory = os.homedir();
+const configDir = path.join(homeDirectory, '.minotaur');
+
+let savedColorVariables = loadPallete();
+let selectedPalette = loadConfig();
+selectedPalette = selectedPalette ? selectedPalette.palette : "1";
+
+function loadConfig() {
+    const configPath = path.join(configDir, 'config.json');
+    try {
+        const data = fs.readFileSync(configPath, 'utf8');
+        const config = JSON.parse(data);
+        return config;
+    } catch (err) {
+        console.error('Error reading config file:', err);
+    }
+}
+
+function loadPallete() {
+    const configPath = path.join(__dirname, "..", "palettes.json");
+    try {
+        const data = fs.readFileSync(configPath, 'utf8');
+        const config = JSON.parse(data);
+        return config;
+    } catch (err) {
+        console.error('Error reading palettes file:', err);
+    }
+}
+
+// Function to update CSS variables based on the selected palette
+function updateCSSVariables(paletteId) {
+    const palette = savedColorVariables[paletteId];
+    if (palette) {
+        Object.keys(palette).forEach(variable => {
+            document.documentElement.style.setProperty(variable, palette[variable]);
+        });
+        selectedPalette = paletteId;
+    }
+}
+
+// Apply the selected palette on page load
+document.addEventListener("DOMContentLoaded", () => {
+    updateCSSVariables(selectedPalette);
+});
 
 // Get references to the HTML elements
 const generalLink = document.querySelector('.general-link');
@@ -43,13 +86,14 @@ closeButton.addEventListener('click', () => {
 generalSaveButton.addEventListener('click', () => {
     const defaultDirectory = document.querySelector('#default-directory').value;
     const encryptionKey = document.querySelector('#encryption-key').value;
+    const palette = selectedPalette;
 
     const configData = {
         defaultDirectory,
-        encryptionKey
+        encryptionKey,
+        palette
     };
-    const homeDirectory = os.homedir();
-    const configDir = path.join(homeDirectory, '.minotaur');
+
     const configPath = path.join(configDir, 'config.json');
 
     // Ensure the directory exists
@@ -71,7 +115,6 @@ generalSaveButton.addEventListener('click', () => {
     }
 });
 
-
 browse.addEventListener("click", () => {
     openFolderDialog();
 });
@@ -87,37 +130,35 @@ function openFolderDialog() {
     });
 }
 
-// Function to update color variables when a palette is clicked
-function updateColorVariables(newColor) {
-    const colorVariables = ['--primary-color', '--secondary-color']; // Add more color variables as needed
-    colorVariables.forEach(variable => {
-        previousColorVariables[variable] = getComputedStyle(document.documentElement).getPropertyValue(variable);
-        document.documentElement.style.setProperty(variable, newColor);
-    });
-}
-
 // Event listener for palette clicks
-const palettes = document.querySelectorAll('.palette');
+const palettes = document.querySelectorAll('.palette img');
 palettes.forEach(palette => {
     palette.addEventListener('click', () => {
-        const newColor = getComputedStyle(palette).getPropertyValue('background-color');
-        updateColorVariables(newColor);
+        const paletteId = palette.className;
+        updateCSSVariables(paletteId);
     });
 });
 
 // Event listener for the "Restaurar" button
 const restoreButton = document.getElementById('reset');
 restoreButton.addEventListener('click', () => {
-    Object.entries(previousColorVariables).forEach(([variable, value]) => {
-        document.documentElement.style.setProperty(variable, value);
-    });
+    const paletteId = loadConfig().palette;
+    updateCSSVariables(paletteId);
 });
 
 // Event listener for the "Guardar" button
-const saveButton = document.getElementById('guardar');
+const saveButton = document.getElementById('appearance-save');
 saveButton.addEventListener('click', () => {
-    // Save the color variables
-    // For example, you can save them to a configuration file or database
-    // Here, we're just logging the values for demonstration purposes
-    console.log("Color variables saved:", previousColorVariables);
+    const configData = loadConfig();
+    configData.palette = selectedPalette;
+    const configPath = path.join(configDir, 'config.json');
+
+    fs.writeFile(configPath, JSON.stringify(configData, null, 2), (err) => {
+        if (err) {
+            console.error('Error saving palette config file:', err);
+        } else {
+            console.log('Palette config saved successfully');
+            alert("Paleta guardada.");
+        }
+    });
 });

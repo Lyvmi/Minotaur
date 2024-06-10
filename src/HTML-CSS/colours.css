@@ -1,58 +1,113 @@
 /* Theme Colors */
-:root {
-    --primary-bg-colour: #e4e9f7;
-    --secondary-bg-colour: #393E46;
-    --primary-colour: #00ADB5;
-    --secondary-colour: #222831; 
-    --font-dark-colour: #333333;
-    --font-light-colour: #CCCCCC;
-  }
-  
-  /* Body */
-  body {
-    background: var(--primary-bg-colour);
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    background: var(--secondary-colour);
-  }
-  
-  /* Folder Container */
-  .folder-container {
-    background: var(--secondary-bg-colour);
-  }
-  
-  /* Note Container */
-  .note-container {
-    background: var(--primary-bg-colour);
-  }
-  
-  /* Text Colors */
-  .note-title,
-  .note-body {
-    color: var(--font-dark-colour);
-  }
-  
-  /* Light Font Color */
-  .note-container .tool-bar .note-name {
-    color: var(--font-light-colour);
-  }
-  
-  /* Button */
-  .button {
-    background-color: var(--primary-colour);
-    color: var(--font-dark-colour);
-  }
-  
-  .button:hover {
-    background-color: var(--secondary-colour);
-  }
-  
-  .sidebar li a:hover .icon {
-    color: var(--primary-color);
+/* Body */
+body {
+  background: var(--primary-bg-colour);
 }
 
-  .sidebar li .icon.active {
-    color: var(--primary-color);
+/* Sidebar */
+.sidebar {
+  background: var(--secondary-colour);
+}
+
+.sidebar li .icon {
+  color: var(--font-light-colour);
+}
+
+.sidebar li a:hover .icon {
+  color: var(--primary-colour);
+}
+
+.sidebar li .icon.active {
+  color: var(--primary-colour);
+}
+
+
+/* Folder Container */
+.folder-container {
+  background: var(--secondary-bg-colour);
+  color: var(--font-light-colour);
+}
+
+.folder-tree .file {
+  color: var(--font-light-colour);
+}
+
+/* Note Container */
+.note-container {
+  background: var(--primary-bg-colour);
+}
+
+/* Text Colors */
+.note-title,
+.note-body {
+  color: var(--font-dark-colour);
+  background: var(--primary-bg-colour);
+}
+
+
+/* Light Font Color */
+.note-container .tool-bar .note-name {
+  color: var(--font-light-colour);
+}
+
+/* Button */
+.button {
+  background-color: var(--primary-colour);
+  color: var(--font-light-colour);
+}
+
+.button:hover {
+  background-color: var(--secondary-colour);
+}
+
+.folder-buttons i:hover {
+  color: var(--primary-colour);
+}
+
+.folder-options i:hover {
+  color: var(--primary-colour);
+}
+
+.folder-tree .file:hover,
+.folder-tree .folder:hover {
+  background-color: rgb(39, 39, 39);
+}
+
+.task {
+  background: var(--primary-bg-colour);
+}
+
+.palette:hover {
+  border-color: var(--primary-colour);
+}
+
+.palette {
+  border-color: var(--font-light-colour);
+}
+
+.appearance-body input[type="button"]:hover,
+.general-body input[type="button"]:hover {
+  background: var(--primary-colour);
+  color: var(--font-light-colour);
+}
+
+span.options {
+  color: var(--font-light-colour);
+}
+
+.sidebar a {
+  color: var(--font-light-colour);
+}
+
+.sidebar a.active {
+  color: var(--primary-colour);
+}
+
+.sidebar a:hover {
+  color: var(--primary-colour);
+}
+
+button.browse:hover {
+  background-color: var(--primary-colour);
+  color: var(--font-light-colour);
 }

@@ -25,7 +25,6 @@ body {
     left: 0;
     height: 100vh;
     width: 250px;
-    color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,22 +37,11 @@ body {
 }
 
 .sidebar a {
-    color: #eeeeee;
     text-decoration: none;
     font-size: 18px;
     margin: 10px 0;
     transition: color 0.3s, background-color 0.3s;
     /* Added background-color transition */
-}
-
-.sidebar a:hover,
-.sidebar a.active {
-    background-color: rgba(0, 173, 181, 0.2);
-    /* Light background for active link */
-    border-radius: 5px;
-    /* Optional: round the corners of the active link */
-    padding: 10px;
-    /* Optional: add padding to make the active link more prominent */
 }
 
 /* General body and Apariencia body styles */
@@ -111,7 +99,6 @@ body {
     padding: 6px 10px;
     /* Adjust padding for better appearance */
     border: none;
-    color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
     /* Transition for background color and box shadow */
@@ -189,7 +176,6 @@ body {
     padding: 12px 25px;
     /* Adjust padding for better appearance */
     border: none;
-    color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
     /* Transition for background color and box shadow */
@@ -202,7 +188,6 @@ body {
 
 .appearance-body input[type="button"]:hover,
 .general-body input[type="button"]:hover {
-    background-color: #007a7f;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
     /* Adjust box shadow on hover */
 }

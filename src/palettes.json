@@ -1,0 +1,58 @@
+{
+    "1": {
+        "--primary-bg-colour": "#e4e9f7",
+        "--secondary-bg-colour": "#393E46",
+        "--primary-colour": "#00ADB5",
+        "--secondary-colour": "#222831",
+        "--font-dark-colour": "#333333",
+        "--font-light-colour": "#FFFFFF"
+    },
+    "2": {
+        "--primary-bg-colour": "#F9ED69",
+        "--secondary-bg-colour": "#F08A5D",
+        "--primary-colour": "#B83B5E",
+        "--secondary-colour": "#6A2C70",
+        "--font-dark-colour": "#222831",
+        "--font-light-colour": "#FFFFFF"
+    },
+    "3": {
+        "--primary-bg-colour": "#AD8B73",
+        "--secondary-bg-colour": "#CEAB93",
+        "--primary-colour": "#E3CAA5",
+        "--secondary-colour": "#FFFBE9",
+        "--font-dark-colour": "#4A4A4A",
+        "--font-light-colour": "#F0F0F0"
+    },
+    "4": {
+        "--primary-bg-colour": "#F8EDE3",
+        "--secondary-bg-colour": "#BDD2B6",
+        "--primary-colour": "#A2B29F",
+        "--secondary-colour": "#798777",
+        "--font-dark-colour": "#333333",
+        "--font-light-colour": "#FFFFFF"
+    },
+    "5": {
+        "--primary-bg-colour": "#F5F7F8",
+        "--secondary-bg-colour": "#F4CE14",
+        "--primary-colour": "#495E57",
+        "--secondary-colour": "#45474B",
+        "--font-dark-colour": "#333333",
+        "--font-light-colour": "#FFFFFF"
+    },
+    "6": {
+        "--primary-bg-colour": "#FFD4D4",
+        "--secondary-bg-colour": "#FFFFE8",
+        "--primary-colour": "#CDE990",
+        "--secondary-colour": "#AACB73",
+        "--font-dark-colour": "#333333",
+        "--font-light-colour": "#FFFFFF"
+    },
+    "7": {
+        "--primary-bg-colour": "#222831",
+        "--secondary-bg-colour": "#393E46",
+        "--primary-colour": "#FFD369",
+        "--secondary-colour": "#EEEEEE",
+        "--font-dark-colour": "#333333",
+        "--font-light-colour": "#FFFFFF"
+    }
+}

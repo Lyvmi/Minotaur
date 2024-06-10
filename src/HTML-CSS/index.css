@@ -54,7 +54,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: lightgray;
 }
 
 .sidebar li a {
@@ -112,7 +111,6 @@ body {
 }
 
 .folder-menu {
-  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -227,10 +225,6 @@ zero-md,
 }
 
 /* Opening and Closing Folder */
-.folder-tree {
-  color: white;
-}
-
 .folder-tree ul {
   list-style-type: none;
   margin: 0;
@@ -271,12 +265,4 @@ zero-md,
 
 .folder-tree .folder{
   width: 100%;
-}
-
-.folder-tree .file:hover, .folder-tree .folder:hover{
-  background-color: rgb(39, 39, 39);
-}
-
-.folder-tree .file{
-  color: white;
 }
