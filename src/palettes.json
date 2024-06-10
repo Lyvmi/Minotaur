@@ -16,10 +16,10 @@
         "--font-light-colour": "#FFFFFF"
     },
     "3": {
-        "--primary-bg-colour": "#AD8B73",
+        "--primary-bg-colour": "#FFFBE9",
         "--secondary-bg-colour": "#CEAB93",
         "--primary-colour": "#E3CAA5",
-        "--secondary-colour": "#FFFBE9",
+        "--secondary-colour": "#AD8B73",
         "--font-dark-colour": "#4A4A4A",
         "--font-light-colour": "#F0F0F0"
     },
@@ -40,18 +40,18 @@
         "--font-light-colour": "#FFFFFF"
     },
     "6": {
-        "--primary-bg-colour": "#FFD4D4",
-        "--secondary-bg-colour": "#FFFFE8",
+        "--primary-bg-colour": "#FFFFE8",
+        "--secondary-bg-colour": "#FFD4D4",
         "--primary-colour": "#CDE990",
         "--secondary-colour": "#AACB73",
         "--font-dark-colour": "#333333",
         "--font-light-colour": "#FFFFFF"
     },
     "7": {
-        "--primary-bg-colour": "#222831",
+        "--primary-bg-colour": "#EEEEEE",
         "--secondary-bg-colour": "#393E46",
         "--primary-colour": "#FFD369",
-        "--secondary-colour": "#EEEEEE",
+        "--secondary-colour": "#222831",
         "--font-dark-colour": "#333333",
         "--font-light-colour": "#FFFFFF"
     }
