@@ -222,6 +222,14 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                             openItem(filePath, true);
                         }
                     });
+                    aElement.addEventListener("contextmenu", (e) => {
+                        let filepath = aElement.dataset.filepath;
+                        e.preventDefault();
+                        const x = e.clientX;
+                        const y = e.clientY;
+                        ipcRenderer.send("show-context-menu3", x, y, filerpath);
+                    });
+
                     liElement.appendChild(aElement);
                     ulElement.appendChild(liElement);
 
@@ -547,4 +555,8 @@ new_folder.addEventListener("click", () => {
 
 ipcRenderer.on("add-folder", (e, folderpath) => {
     nameNewFolder(folderpath);
+});
+
+ipcRenderer.on("delete", (e, element) =>{
+    deleteItem(element);
 });

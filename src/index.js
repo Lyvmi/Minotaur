@@ -136,7 +136,15 @@ ipcMain.handle('show-open-folder-dialog', async () => {
 
 ipcMain.on('show-context-menu', (event, x, y, element) => {
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Nueva carpeta', click: () => event.reply("add-folder", element) }
+    { label: 'Nueva carpeta', click: () => event.reply("add-folder", element) },
+    { label: 'Eliminar carpeta', click: () => event.reply("delete-folder", element) }
+  ]);
+  contextMenu.popup({ window: BrowserWindow.getFocusedWindow(), x, y });
+});
+
+ipcMain.on('show-context-menu3', (event, x, y, element) => {
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Eliminar nota', click: () => event.reply("delete", element) }
   ]);
   contextMenu.popup({ window: BrowserWindow.getFocusedWindow(), x, y });
 });
