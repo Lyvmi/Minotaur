@@ -165,6 +165,9 @@ new_note.addEventListener("click", () => {
             noteTitle.value = "";
             noteBody.value = "";
             isNoteOpened = false;
+            if (markdown_toggle.classList.contains("active")){
+                md_text.innerHTML = noteBody.value;
+            }
         }
     }
     else {
@@ -227,7 +230,7 @@ function buildDirectoryTreeHTML(directoryPath, callback) {
                         e.preventDefault();
                         const x = e.clientX;
                         const y = e.clientY;
-                        ipcRenderer.send("show-context-menu3", x, y, filerpath);
+                        ipcRenderer.send("show-context-menu3", x, y, filepath);
                     });
 
                     liElement.appendChild(aElement);
@@ -305,6 +308,9 @@ function openItem(filePath) {
             savedTitle = noteContent[0];
             savedBody = noteContent[1];
             isNoteOpened = true;
+            if (markdown_toggle.classList.contains("active")){
+                md_text.innerHTML = noteBody.value;
+            }
 
         });
     }

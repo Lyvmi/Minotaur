@@ -43,9 +43,9 @@ body {
   background: var(--primary-bg-colour);
 }
 
-/* Color de fuente claro */
+/* Color de fuente oscuro */
 .note-container .tool-bar .note-name {
-  color: var(--font-light-colour);
+  color: var(--font-dark-colour);
 }
 
 /* Botón */
@@ -68,7 +68,7 @@ body {
 
 .folder-tree .file:hover,
 .folder-tree .folder:hover {
-  background-color: rgb(39, 39, 39);
+  background-color: rgb(146, 146, 146);
 }
 
 .task {

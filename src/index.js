@@ -137,7 +137,7 @@ ipcMain.handle('show-open-folder-dialog', async () => {
 ipcMain.on('show-context-menu', (event, x, y, element) => {
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Nueva carpeta', click: () => event.reply("add-folder", element) },
-    { label: 'Eliminar carpeta', click: () => event.reply("delete-folder", element) }
+    { label: 'Eliminar carpeta', click: () => event.reply("delete", element) }
   ]);
   contextMenu.popup({ window: BrowserWindow.getFocusedWindow(), x, y });
 });
